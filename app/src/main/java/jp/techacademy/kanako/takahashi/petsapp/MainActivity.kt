@@ -1,6 +1,7 @@
 package jp.techacademy.kanako.takahashi.petsapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
@@ -21,7 +22,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mLoginListener: OnCompleteListener<AuthResult>
     private lateinit var mDataBaseReference: DatabaseReference
 
-    // アカウント作成時にフラグを立て、ログイン処理後に名前をFirebaseに保存する
     private var mIsCreateAccount = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,8 +61,11 @@ class MainActivity : AppCompatActivity() {
                 // プログレスバーを非表示にする
                 progressBar.visibility = View.GONE
 
-                // Activityを閉じる
-                finish()
+                val intent = Intent(applicationContext, Addcats::class.java)
+                startActivity(intent)
+
+//                // Activityを閉じる
+//                finish()
 
             } else {
                 // 失敗した場合

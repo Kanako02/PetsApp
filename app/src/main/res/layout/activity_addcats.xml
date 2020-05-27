@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Addcats">
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="5dp"
+        android:text="プロフィール写真登録" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_below="@+id/textView1"
+        android:background="#d3d3d3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:text="猫の名前"/>
+
+    <EditText
+        android:id="@+id/nameText"
+        android:layout_width="303dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        />
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nameText"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:text="猫の性別"/>
+
+    <EditText
+        android:id="@+id/genderText"
+        android:layout_width="303dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gender"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp" />
+
+    <TextView
+        android:id="@+id/birth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/genderText"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:text="猫の誕生日・年齢"/>
+
+    <EditText
+        android:id="@+id/birthText"
+        android:layout_width="303dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/birth"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="55dp" />
+
+　　<TextView
+    android:id="@+id/memoText"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/birthText"
+    android:layout_alignParentStart="true"
+    android:layout_marginStart="50dp"
+    android:layout_marginTop="5dp"
+    android:text="メモ"/>
+
+    <EditText
+        android:id="@+id/profileMemo"
+        android:layout_width="303dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/memoText"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/profileMemo"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="29dp"
+        android:background="@drawable/custom_button"
+        android:text="登録"
+        android:textColor="@color/colorButtonText" />
+
+
+</RelativeLayout>
