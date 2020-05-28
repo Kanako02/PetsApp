@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PetsApp</string>
+    <string name="title_activity_allpets">Allpets</string>
 </resources>

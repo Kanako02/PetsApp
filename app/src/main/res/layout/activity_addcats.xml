@@ -12,12 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="135dp"
         android:layout_marginTop="5dp"
-        android:text="プロフィール写真登録" />
+        android:text="プロフィール写真登録"
+        android:textSize="12sp" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/topimageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_below="@+id/textView1"
@@ -29,10 +30,11 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
+        android:layout_below="@+id/topimageView"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
-        android:text="猫の名前"/>
+        android:text="*猫の名前"
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/nameText"
@@ -41,6 +43,7 @@
         android:layout_below="@+id/name"
         android:layout_alignParentStart="true"
         android:layout_marginStart="50dp"
+        android:maxLines="1"
         />
 
     <TextView
@@ -50,52 +53,90 @@
         android:layout_below="@+id/nameText"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
-        android:text="猫の性別"/>
+        android:text="猫の性別"
+        android:textSize="12sp" />
 
-    <EditText
-        android:id="@+id/genderText"
-        android:layout_width="303dp"
+    <RadioGroup
+        android:id="@+id/radio"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/gender"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="50dp" />
+        android:orientation="horizontal">
+
+    　　<RadioButton
+           android:id="@+id/menButton"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="オス"
+           android:layout_marginStart="50dp"/>
+
+        <RadioButton
+            android:id="@+id/ladyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="メス"
+            android:layout_marginStart="50dp"/>
+
+        <RadioButton
+            android:id="@+id/unButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="不明"
+            android:layout_marginStart="50dp"/>
+    </RadioGroup>
 
     <TextView
         android:id="@+id/birth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/genderText"
+        android:layout_below = "@+id/radio"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
-        android:text="猫の誕生日・年齢"/>
+        android:text="猫の誕生日・年齢"
+        android:textSize="12sp" />
 
-    <EditText
-        android:id="@+id/birthText"
-        android:layout_width="303dp"
+    <Button
+        android:id="@+id/date_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/birth"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="55dp" />
+        android:layout_marginTop="0dp"
+        android:text="----/--/--"
+        android:layout_marginStart="50dp"/>
 
-　　<TextView
-    android:id="@+id/memoText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/birthText"
-    android:layout_alignParentStart="true"
-    android:layout_marginStart="50dp"
-    android:layout_marginTop="5dp"
-    android:text="メモ"/>
+    <TextView
+        android:id="@+id/datetext"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:layout_below="@+id/birth"
+        android:layout_toEndOf="@+id/date_button"
+        android:hint="年齢"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/memoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/date_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="5dp"
+        android:text="メモ"
+        android:textSize="12sp" />
 
     <EditText
         android:id="@+id/profileMemo"
         android:layout_width="303dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/memoText"
+        android:maxLines="3"
         android:layout_alignParentStart="true"
         android:layout_marginStart="50dp" />
 
     <Button
+        android:id="@+id/profileButton"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@+id/profileMemo"

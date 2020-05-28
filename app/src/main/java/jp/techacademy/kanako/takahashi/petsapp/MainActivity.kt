@@ -11,6 +11,7 @@ import android.view.inputmethod.InputMethodManager
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,6 +42,10 @@ class MainActivity : AppCompatActivity() {
                 val email = emailText.text.toString()
                 val password = passwordText.text.toString()
                 login(email, password)
+
+                val intent = Intent(applicationContext, Addcats::class.java)
+                startActivity(intent)
+
             } else {
 
                 // 失敗した場合
@@ -57,9 +62,14 @@ class MainActivity : AppCompatActivity() {
         mLoginListener = OnCompleteListener { task ->
             if (task.isSuccessful) {
                 // 成功した場合
+                val user = mAuth.currentUser
+                val userRef = mDataBaseReference.child(UsersPATH).child(user!!.uid)
 
                 // プログレスバーを非表示にする
                 progressBar.visibility = View.GONE
+
+//                val intent = Intent(applicationContext, Allpets::class.java)
+//                startActivity(intent)
 
                 val intent = Intent(applicationContext, Addcats::class.java)
                 startActivity(intent)
@@ -79,7 +89,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // UIの準備
-        title = "ログイン"
+        // タイトルの設定
+        supportActionBar?.title = "ログイン"
 
         createButton.setOnClickListener { v ->
             // キーボードが出てたら閉じる
@@ -125,7 +136,8 @@ class MainActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
 
         // アカウントを作成する
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(mCreateAccountListener)
+        mAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(mCreateAccountListener)
     }
 
     private fun login(email: String, password: String) {
@@ -135,5 +147,4 @@ class MainActivity : AppCompatActivity() {
         // ログインする
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(mLoginListener)
     }
-
 }
