@@ -87,12 +87,12 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             val id = radioGroup.checkedRadioButtonId //radiobutton
             val checkedRadioButton = findViewById<RadioButton>(id)
 
-
             val data = HashMap<String, String>()
 
             val name = nameText.text.toString()
             val gender = checkedRadioButton.text.toString()
-//            val birth = //detaダイアログに変更
+            val birth = date_button.text.toString()
+//            val old =
             val profilememo = profileMemo.text.toString()
 
             if (name.isEmpty()) {
@@ -103,7 +103,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
 
             data["name"] = name
             data["gender"] = gender
-//            data["birth"] = birth
+            data["birth"] = birth
             data["profilememo"] = profilememo
 
             // 添付画像を取得する
@@ -126,6 +126,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             startActivity(intent)
         }
     }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
