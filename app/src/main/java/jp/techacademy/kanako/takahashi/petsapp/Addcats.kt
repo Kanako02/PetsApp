@@ -2,6 +2,7 @@ package jp.techacademy.kanako.takahashi.petsapp
 
 import android.Manifest
 import android.app.Activity
+import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
@@ -19,6 +20,7 @@ import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.util.Base64
 import android.view.inputmethod.InputMethodManager
+import android.widget.RadioButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -26,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.ByteArrayOutputStream
+import kotlinx.android.synthetic.main.activity_main.progressBar as progressBar1
 
 class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.CompletionListener {
 
@@ -35,6 +38,10 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
     }
 
     private var mPictureUri: Uri? = null
+
+    private var mYear = 0
+    private var mMonth = 0
+    private var mDay = 0
 
 //    private lateinit var mAuth: FirebaseAuth
 
@@ -46,6 +53,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
 
         profileButton.setOnClickListener(this)
         topimageView.setOnClickListener(this)
+        date_button.setOnClickListener(mOnDateClickListener)
 
     }
 
@@ -76,12 +84,15 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             val dataBaseReference = FirebaseDatabase.getInstance().reference
             val profileRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
 
+            val id = radioGroup.checkedRadioButtonId //radiobutton
+            val checkedRadioButton = findViewById<RadioButton>(id)
+
 
             val data = HashMap<String, String>()
 
             val name = nameText.text.toString()
-            val gender =   //ラジオボタンに変更
-            val birth = //detaダイアログに変更
+            val gender = checkedRadioButton.text.toString()
+//            val birth = //detaダイアログに変更
             val profilememo = profileMemo.text.toString()
 
             if (name.isEmpty()) {
@@ -92,7 +103,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
 
             data["name"] = name
             data["gender"] = gender
-            data["birth"] = birth
+//            data["birth"] = birth
             data["profilememo"] = profilememo
 
             // 添付画像を取得する
@@ -194,6 +205,18 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
         chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(cameraIntent))
 
         startActivityForResult(chooserIntent, CHOOSER_REQUEST_CODE)
+    }
+
+    private val mOnDateClickListener = View.OnClickListener {
+        val datePickerDialog = DatePickerDialog(this,
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                mYear = year
+                mMonth = month
+                mDay = dayOfMonth
+                val dateString = mYear.toString() + "/" + String.format("%02d", mMonth + 1) + "/" + String.format("%02d", mDay)
+                date_button.text = dateString
+            }, mYear, mMonth, mDay)
+        datePickerDialog.show()
     }
 
     override fun onComplete(databaseError: DatabaseError?, databaseReference: DatabaseReference) {
