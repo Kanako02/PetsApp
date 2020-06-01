@@ -18,11 +18,12 @@ class Allpets : AppCompatActivity() {
 
 
     private val mEventListener = object : ChildEventListener {
-
         override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
             val map = dataSnapshot.value as Map<String, String>
             val name = map["name"] ?: ""
             val uid = map["uid"] ?: ""
+            val gender = map["gender"]?:""
+            val birth = map["birth"]?:""
             val imageString = map["image"] ?: ""
             val bytes =
                 if (imageString.isNotEmpty()) {
@@ -31,15 +32,14 @@ class Allpets : AppCompatActivity() {
                     byteArrayOf()
                 }
 
-            val pet = Pet(name, uid,bytes)
-            //dataSnapshot.key ?: "", bytes)
-
-            mPetArrayList.add(pet)
-            mAdapter.notifyDataSetChanged()
+//            val pet = Pet(name, uid,gender, bytes)
+//
+//            mPetArrayList.add(pet)
+//            mAdapter.notifyDataSetChanged()
         }
 
-        override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+
         }
 
         override fun onChildRemoved(p0: DataSnapshot) {

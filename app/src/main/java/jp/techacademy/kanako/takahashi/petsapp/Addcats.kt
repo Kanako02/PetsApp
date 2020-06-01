@@ -27,7 +27,15 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.activity_main.*
+import org.threeten.bp.LocalDate
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.Month
+import org.threeten.bp.Period
+import org.threeten.bp.temporal.ChronoUnit
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.HashMap
 import kotlinx.android.synthetic.main.activity_main.progressBar as progressBar1
 
 class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.CompletionListener {
@@ -87,6 +95,10 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             val id = radioGroup.checkedRadioButtonId //radiobutton
             val checkedRadioButton = findViewById<RadioButton>(id)
 
+//            val df = SimpleDateFormat("yyyy/MM/dd")   //現在の日付
+//            val date = Date()
+//            println(df.format(date))
+
             val data = HashMap<String, String>()
 
             val name = nameText.text.toString()
@@ -94,6 +106,8 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             val birth = date_button.text.toString()
 //            val old =
             val profilememo = profileMemo.text.toString()
+
+
 
             if (name.isEmpty()) {
                 // タイトルが入力されていない時はエラーを表示するだけ
@@ -104,6 +118,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             data["name"] = name
             data["gender"] = gender
             data["birth"] = birth
+//            data["old"] = old
             data["profilememo"] = profilememo
 
             // 添付画像を取得する
@@ -216,9 +231,31 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
                 mDay = dayOfMonth
                 val dateString = mYear.toString() + "/" + String.format("%02d", mMonth + 1) + "/" + String.format("%02d", mDay)
                 date_button.text = dateString
+
+                val birthday = mYear.toString() + String.format("%02d", mMonth + 1) + String.format("%02d", mDay)
+                println("誕生日:$birthday")
+
+                val df = SimpleDateFormat("yyyyMMdd")  //現在の日付
+                val date = Date()
+                println(df.format(date))
+
+
+                val birth : Int = Integer.parseInt(birthday)
+                val now : Int = Integer.parseInt(df.format(date))
+                println("現在:$now")
+
+                val old = (now - birth)/10000
+                        println("年齢:$old")
+
+                oldtext.text = old.toString()
+
             }, mYear, mMonth, mDay)
         datePickerDialog.show()
+
     }
+
+
+
 
     override fun onComplete(databaseError: DatabaseError?, databaseReference: DatabaseReference) {
         progressBar.visibility = View.GONE

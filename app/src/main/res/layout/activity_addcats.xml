@@ -116,14 +116,14 @@
         android:layout_toEndOf="@+id/date_button"
         android:hint="年齢"
         android:textAlignment="center"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/birth"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="19dp"
         android:layout_toEndOf="@+id/oldtext"
         android:text="歳"
         android:textAlignment="center"
