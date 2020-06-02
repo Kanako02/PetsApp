@@ -17,7 +17,6 @@
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/imageView"
-        android:text="名前"
         android:textAlignment="textStart"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

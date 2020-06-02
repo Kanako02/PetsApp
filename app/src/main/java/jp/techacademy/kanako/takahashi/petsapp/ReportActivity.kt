@@ -1,36 +1,41 @@
 package jp.techacademy.kanako.takahashi.petsapp
 
-import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.widget.ListView
+import android.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-
-import kotlinx.android.synthetic.main.activity_allpets.*
 import kotlinx.android.synthetic.main.activity_allpets.fab
 
-class Allpets : AppCompatActivity() {
+import kotlinx.android.synthetic.main.activity_report.*
+import kotlinx.android.synthetic.main.app_ber.*
+import kotlinx.android.synthetic.main.list_pets.*
+
+class ReportActivity : AppCompatActivity() {
+
 
     private lateinit var mDatabaseReference: DatabaseReference
     private lateinit var mListView: ListView
-    private lateinit var mPetArrayList: ArrayList<Pet>
-    private lateinit var mAdapter: PetListAdapter
+    private lateinit var mReportArrayList: ArrayList<Report>
+    private lateinit var mAdapter: ReportListAdapter
 
-    private lateinit var mPetRef: DatabaseReference
+    private lateinit var mReportRef: DatabaseReference
 
-    private val mEventListener = object : ChildEventListener {
+    private val mReportListener = object : ChildEventListener {
         override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
             val map = dataSnapshot.value as Map<String, String>
 
-            val petUid = dataSnapshot.key ?: ""
-            val name = map["name"] ?: ""
-            val uid = map["uid"] ?: ""
-            val gender = map["gender"] ?: ""
-            val birth = map["birth"] ?: ""
-            val old = map["old"] ?: ""
+//            val petUid = dataSnapshot.key ?: ""
+            val day = map["day"] ?: ""
+            val toilet = map["toilet"] ?: ""
+            val weight = map["weight"] ?: ""
+            val memo = map["memo"] ?: ""
             val imageString = map["image"] ?: ""
             val bytes =
                 if (imageString.isNotEmpty()) {
@@ -39,10 +44,11 @@ class Allpets : AppCompatActivity() {
                     byteArrayOf()
                 }
 
-            val pet = Pet(name, uid, gender, birth, old, petUid, bytes)
+            val report = Report(day, toilet, weight, memo, bytes)
 
+            println("データスナップ:$dataSnapshot")
 
-            mPetArrayList.add(pet)
+            mReportArrayList.add(report)
             mAdapter.notifyDataSetChanged()
         }
 
@@ -63,46 +69,40 @@ class Allpets : AppCompatActivity() {
         }
     }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_allpets)
+        setContentView(R.layout.activity_report)
         setSupportActionBar(toolbar)
-        // タイトルの設定
-        supportActionBar?.title = "ペット一覧"
+//        mToolbar = findViewById(R.id.toolbar)
+
+        supportActionBar?.title = "猫の記録"
+
 
         // Firebase
         mDatabaseReference = FirebaseDatabase.getInstance().reference
 
         // ListViewの準備
         mListView = findViewById(R.id.listView)
-        mAdapter = PetListAdapter(this)
-        mPetArrayList = ArrayList<Pet>()
+        mAdapter = ReportListAdapter(this)
+        mReportArrayList = ArrayList<Report>()
         mAdapter.notifyDataSetChanged()
 
         //AdapterをListにセット
-        mPetArrayList.clear()
-        mAdapter.setPetArrayList(mPetArrayList)
+        mReportArrayList.clear()
+        mAdapter.setReportArrayList(mReportArrayList)
         mListView.adapter = mAdapter
 
 
-        mPetRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-        mPetRef.addChildEventListener(mEventListener)
+        mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+        mReportRef.addChildEventListener(mReportListener)
 
 
-        mListView.setOnItemClickListener { parent, view, position, id ->
-            // リストをタップしたら遷移
-            val intent = Intent(applicationContext, ReportActivity::class.java)
-            intent.putExtra("pet", mPetArrayList[position])
-            startActivity(intent)
-        }
 
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
-            val intent = Intent(applicationContext, Addcats::class.java)
-            startActivity(intent)
-
         }
     }
 

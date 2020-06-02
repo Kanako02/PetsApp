@@ -12,20 +12,20 @@ import android.widget.TextView
 
 import java.util.ArrayList
 
-class PetListAdapter(context: Context) : BaseAdapter() {
+class ReportListAdapter(context: Context) : BaseAdapter() {
     private var mLayoutInflater: LayoutInflater
-    private var mPetArrayList = ArrayList<Pet>()
+    private var mReportArrayList = ArrayList<Report>()
 
     init {
         mLayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
     override fun getCount(): Int {
-        return mPetArrayList.size
+        return mReportArrayList.size
     }
 
     override fun getItem(position: Int): Any {
-        return mPetArrayList[position]
+        return mReportArrayList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -36,17 +36,26 @@ class PetListAdapter(context: Context) : BaseAdapter() {
         var convertView = convertView
 
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.list_pets, parent, false)
+            convertView = mLayoutInflater.inflate(R.layout.list_report, parent, false)
         }
 
-        val nameText = convertView!!.findViewById<View>(R.id.nameText) as TextView
-        nameText.text = mPetArrayList[position].name
+        val dayText = convertView!!.findViewById<View>(R.id.dayText) as TextView
+        dayText.text = mReportArrayList[position].day
 
-//        val resText = convertView.findViewById<View>(R.id.resTextView) as TextView
-//        val resNum = mQuestionArrayList[position].answers.size
-//        resText.text = resNum.toString()
+        val foodText = convertView!!.findViewById<View>(R.id.foodText) as TextView
+        foodText.text = mReportArrayList[position].food
 
-        val bytes = mPetArrayList[position].imageBytes
+        val toiletText = convertView.findViewById<View>(R.id.toiletText) as TextView
+       toiletText.text = mReportArrayList[position].toilet
+
+        val weightText = convertView.findViewById<View>(R.id.weightText) as TextView
+         weightText.text = mReportArrayList[position].weight
+
+        val memoText = convertView.findViewById<View>(R.id.memoText) as TextView
+        memoText.text = mReportArrayList[position].memo
+
+
+        val bytes = mReportArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
             val imageView = convertView.findViewById<View>(R.id.imageView) as ImageView
@@ -56,7 +65,7 @@ class PetListAdapter(context: Context) : BaseAdapter() {
         return convertView
     }
 
-    fun setPetArrayList(petArrayList: ArrayList<Pet>) {
-        mPetArrayList = petArrayList
+    fun setReportArrayList(questionArrayList: ArrayList<Report>) {
+        mReportArrayList = questionArrayList
     }
 }

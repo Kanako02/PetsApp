@@ -62,16 +62,16 @@ class MainActivity : AppCompatActivity() {
         mLoginListener = OnCompleteListener { task ->
             if (task.isSuccessful) {
                 // 成功した場合
-                val user = mAuth.currentUser
-                val userRef = mDataBaseReference.child(UsersPATH).child(user!!.uid)
+//                val user = mAuth.currentUser
+//                val userRef = mDataBaseReference.child(UsersPATH).child(user!!.uid)
 
                 // プログレスバーを非表示にする
                 progressBar.visibility = View.GONE
 
-//                val intent = Intent(applicationContext, Allpets::class.java)
+//                val intent = Intent(applicationContext, Addcats::class.java)
 //                startActivity(intent)
 
-                val intent = Intent(applicationContext, Addcats::class.java)
+                val intent = Intent(applicationContext, Allpets::class.java)
                 startActivity(intent)
 
 //                // Activityを閉じる

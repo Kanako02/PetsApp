@@ -26,17 +26,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_addcats.*
-import kotlinx.android.synthetic.main.activity_main.*
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.Month
-import org.threeten.bp.Period
-import org.threeten.bp.temporal.ChronoUnit
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
-import kotlinx.android.synthetic.main.activity_main.progressBar as progressBar1
 
 class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.CompletionListener {
 
@@ -51,9 +44,6 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
     private var mMonth = 0
     private var mDay = 0
 
-//    private lateinit var mAuth: FirebaseAuth
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcats)
@@ -62,7 +52,6 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
         profileButton.setOnClickListener(this)
         topimageView.setOnClickListener(this)
         date_button.setOnClickListener(mOnDateClickListener)
-
     }
 
     override fun onClick(v: View) {
@@ -95,16 +84,12 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             val id = radioGroup.checkedRadioButtonId //radiobutton
             val checkedRadioButton = findViewById<RadioButton>(id)
 
-//            val df = SimpleDateFormat("yyyy/MM/dd")   //現在の日付
-//            val date = Date()
-//            println(df.format(date))
-
             val data = HashMap<String, String>()
 
             val name = nameText.text.toString()
             val gender = checkedRadioButton.text.toString()
             val birth = date_button.text.toString()
-//            val old =
+            val old = oldtext.text.toString()
             val profilememo = profileMemo.text.toString()
 
 
@@ -118,7 +103,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             data["name"] = name
             data["gender"] = gender
             data["birth"] = birth
-//            data["old"] = old
+            data["old"] = old
             data["profilememo"] = profilememo
 
             // 添付画像を取得する
@@ -253,7 +238,6 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
         datePickerDialog.show()
 
     }
-
 
 
 

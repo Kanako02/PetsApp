@@ -77,12 +77,12 @@
             android:text="メス"
             android:layout_marginStart="50dp"/>
 
-        <RadioButton
-            android:id="@+id/unButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="不明"
-            android:layout_marginStart="50dp"/>
+<!--        <RadioButton-->
+<!--            android:id="@+id/unButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="不明"-->
+<!--            android:layout_marginStart="50dp"/>-->
     </RadioGroup>
 
     <TextView
@@ -112,18 +112,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/birth"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="14dp"
         android:layout_toEndOf="@+id/date_button"
-        android:hint="年齢"
         android:textAlignment="center"
         android:textSize="18sp" />
+<!--        android:hint="年齢"-->
+
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/birth"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="15dp"
         android:layout_toEndOf="@+id/oldtext"
         android:text="歳"
         android:textAlignment="center"
