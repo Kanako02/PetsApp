@@ -58,8 +58,8 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
         val bytes = mReportArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
-            val imageView = convertView.findViewById<View>(R.id.imageView) as ImageView
-            imageView.setImageBitmap(image)
+            val dayimageView = convertView.findViewById<View>(R.id.dayimageView) as ImageView
+            dayimageView.setImageBitmap(image)
         }
 
         return convertView

@@ -39,6 +39,10 @@ class Allpets : AppCompatActivity() {
                     byteArrayOf()
                 }
 
+
+            //ReportArrayList追加
+
+
             val pet = Pet(name, uid, gender, birth, old, petUid, bytes)
 
 

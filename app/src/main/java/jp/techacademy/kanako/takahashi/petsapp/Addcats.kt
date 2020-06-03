@@ -16,6 +16,7 @@ import android.view.View
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
+import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.util.Base64
@@ -79,6 +80,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
+
             val profileRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
 
             val id = radioGroup.checkedRadioButtonId //radiobutton

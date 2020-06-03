@@ -12,6 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginStart="135dp"
         android:layout_marginTop="5dp"
         android:text="プロフィール写真登録"
@@ -112,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/birth"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/date_button"
         android:textAlignment="center"
         android:textSize="18sp" />
@@ -124,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/birth"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:layout_toEndOf="@+id/oldtext"
         android:text="歳"
         android:textAlignment="center"
@@ -146,9 +147,11 @@
         android:layout_width="303dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/memoText"
-        android:maxLines="3"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="50dp" />
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="-1dp"
+        android:maxLines="3"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/profileButton"

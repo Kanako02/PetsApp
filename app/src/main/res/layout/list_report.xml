@@ -7,7 +7,7 @@
     <ImageView
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:id="@+id/imageView"
+        android:id="@+id/dayimageView"
         android:layout_margin="2dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/dayimageView"
         android:textAlignment="textStart"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -24,7 +24,7 @@
         android:id="@+id/foodText"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/dayimageView"
         android:layout_below="@+id/dayText"
         android:textAlignment="textStart"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -33,7 +33,7 @@
         android:id="@+id/toiletText"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/dayimageView"
         android:layout_below="@+id/foodText"
         android:textAlignment="textStart"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -42,7 +42,7 @@
         android:id="@+id/weightText"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/dayimageView"
         android:layout_below="@+id/toiletText"
         android:textAlignment="textStart"
         android:textAppearance="?android:attr/textAppearanceLarge" />
@@ -51,7 +51,7 @@
         android:id="@+id/memoText"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_toEndOf="@+id/imageView"
+        android:layout_toEndOf="@+id/dayimageView"
         android:layout_below="@+id/weightText"
         android:textAlignment="textStart"
         android:textAppearance="?android:attr/textAppearanceLarge" />
