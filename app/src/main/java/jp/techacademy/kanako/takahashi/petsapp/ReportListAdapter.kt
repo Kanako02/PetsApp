@@ -33,6 +33,7 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+//        val item = getItem(count - 1 - position)
         var convertView = convertView
 
         if (convertView == null) {
@@ -42,17 +43,23 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
         val dayText = convertView!!.findViewById<View>(R.id.dayText) as TextView
         dayText.text = mReportArrayList[position].day
 
-        val foodText = convertView!!.findViewById<View>(R.id.foodText) as TextView
-        foodText.text = mReportArrayList[position].food
+        val asaText = convertView.findViewById<View>(R.id.asaText1) as TextView
+        asaText.text = mReportArrayList[position].asa
 
-        val toiletText = convertView.findViewById<View>(R.id.toiletText) as TextView
+        val hiruText = convertView.findViewById<View>(R.id.hiruText1) as TextView
+        hiruText.text = mReportArrayList[position].hiru
+
+        val yoruText = convertView.findViewById<View>(R.id.yoruText1) as TextView
+        yoruText.text = mReportArrayList[position].yoru
+
+        val toiletText = convertView.findViewById<View>(R.id.toiletText1) as TextView
        toiletText.text = mReportArrayList[position].toilet
 
-        val weightText = convertView.findViewById<View>(R.id.weightText) as TextView
+        val weightText = convertView.findViewById<View>(R.id.weightText1) as TextView
          weightText.text = mReportArrayList[position].weight
 
-        val memoText = convertView.findViewById<View>(R.id.memoText) as TextView
-        memoText.text = mReportArrayList[position].memo
+        val memoText = convertView.findViewById<View>(R.id.detailmemo1) as TextView
+        memoText.text = mReportArrayList[position].detailmemo
 
 
         val bytes = mReportArrayList[position].imageBytes

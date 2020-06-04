@@ -8,9 +8,9 @@ import android.util.Base64
 import android.widget.ListView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_allpets.fab
-
+import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.app_ber.*
+
 
 class ReportActivity : AppCompatActivity() {
 
@@ -20,17 +20,21 @@ class ReportActivity : AppCompatActivity() {
     private lateinit var mReportArrayList: ArrayList<Report>
     private lateinit var mAdapter: ReportListAdapter
 
+    private lateinit var mPet: Pet
+
     private lateinit var mReportRef: DatabaseReference
 
     private val mReportListener = object : ChildEventListener {
         override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
             val map = dataSnapshot.value as Map<String, String>
 
-            val petUid = dataSnapshot.key ?: ""
             val day = map["day"] ?: ""
+            val asa = map["asa"] ?: ""
+            val hiru = map["hiru"] ?: ""
+            val yoru = map["yoru"] ?: ""
             val toilet = map["toilet"] ?: ""
             val weight = map["weight"] ?: ""
-            val memo = map["memo"] ?: ""
+            val detailmemo = map["detailmemo"] ?: ""
             val dayimage = map["dayimage"] ?: ""
             val bytes =
                 if (dayimage.isNotEmpty()) {
@@ -39,7 +43,7 @@ class ReportActivity : AppCompatActivity() {
                     byteArrayOf()
                 }
 
-            val report = Report(day, toilet, weight, memo, petUid, bytes)
+            val report = Report(day, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
 
             mReportArrayList.add(report)
             mAdapter.notifyDataSetChanged()
@@ -69,7 +73,12 @@ class ReportActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 //        mToolbar = findViewById(R.id.toolbar)
 
-        supportActionBar?.title = "猫の記録"
+        supportActionBar?.title = "お世話記録"
+
+
+        // 渡ってきたオブジェクトを保持する
+        val extras = intent.extras
+        mPet = extras.get("petUid") as Pet
 
 
         // Firebase
@@ -81,6 +90,30 @@ class ReportActivity : AppCompatActivity() {
         mReportArrayList = ArrayList<Report>()
         mAdapter.notifyDataSetChanged()
 
+//        //AdapterをListにセット
+//        mReportArrayList.clear()
+//        mAdapter.setReportArrayList(mReportArrayList)
+//        mListView.adapter = mAdapter
+//
+//
+//
+//        mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
+//            ReportPATH)
+//        mReportRef.addChildEventListener(mReportListener)
+
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show()
+
+            val intent = Intent(applicationContext, Petdetail::class.java)
+            intent.putExtra("petUid", mPet)
+            startActivity(intent)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
         //AdapterをListにセット
         mReportArrayList.clear()
         mAdapter.setReportArrayList(mReportArrayList)
@@ -88,20 +121,10 @@ class ReportActivity : AppCompatActivity() {
 
 
 
-        mReportRef = mDatabaseReference.child(ReportPATH).child(FirebaseAuth.getInstance().currentUser!!.uid)  //変更
+        mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
+            ReportPATH)
         mReportRef.addChildEventListener(mReportListener)
 
-
-
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-
-
-            val intent = Intent(applicationContext, Petdetail::class.java)
-            startActivity(intent)
-        }
     }
 
 }

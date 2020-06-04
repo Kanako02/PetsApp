@@ -53,6 +53,13 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
         profileButton.setOnClickListener(this)
         topimageView.setOnClickListener(this)
         date_button.setOnClickListener(mOnDateClickListener)
+
+        val calendar = Calendar.getInstance()
+        mYear = calendar.get(Calendar.YEAR)
+        mMonth = calendar.get(Calendar.MONTH)
+        mDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+
     }
 
     override fun onClick(v: View) {
@@ -80,7 +87,6 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
-
             val profileRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
 
             val id = radioGroup.checkedRadioButtonId //radiobutton
@@ -93,7 +99,6 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             val birth = date_button.text.toString()
             val old = oldtext.text.toString()
             val profilememo = profileMemo.text.toString()
-
 
 
             if (name.isEmpty()) {

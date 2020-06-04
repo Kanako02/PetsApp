@@ -11,50 +11,154 @@
         android:layout_margin="2dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
+
     <TextView
         android:id="@+id/dayText"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
+        android:layout_height="15dp"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/dayimageView"
-        android:textAlignment="textStart"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginStart="5dp"
+        android:textAlignment="viewStart"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="14dp" />
 
     <TextView
-        android:id="@+id/foodText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_toEndOf="@+id/dayimageView"
+        android:id="@+id/food"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/dayText"
-        android:textAlignment="textStart"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_toEndOf="@+id/dayimageView"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="5dp"
+        android:text="ごはん"
+        android:textSize="12dp" />
 
     <TextView
-        android:id="@+id/toiletText"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:id="@+id/asa1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food"
         android:layout_toEndOf="@+id/dayimageView"
-        android:layout_below="@+id/foodText"
-        android:textAlignment="textStart"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginStart="5dp"
+        android:textSize="12dp"
+        android:text="朝"/>
 
     <TextView
-        android:id="@+id/weightText"
-        android:layout_width="match_parent"
+        android:id="@+id/asaText1"
+        android:layout_width="30dp"
         android:layout_height="20dp"
-        android:layout_toEndOf="@+id/dayimageView"
-        android:layout_below="@+id/toiletText"
-        android:textAlignment="textStart"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_below="@+id/asa1"
+        android:layout_toEndOf="@+id/asa1"
+        android:textSize="14dp" />
 
     <TextView
-        android:id="@+id/memoText"
-        android:layout_width="match_parent"
+        android:id="@+id/hiru1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@+id/asaText1"
+        android:text="昼"
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/hiruText1"
+        android:layout_width="30dp"
         android:layout_height="20dp"
+        android:layout_below="@+id/hiru1"
+        android:layout_toEndOf="@+id/hiru1"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/yoru1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food"
+        android:layout_toRightOf="@+id/hiruText1"
+        android:layout_marginStart="5dp"
+        android:textSize="12dp"
+        android:text="夜"/>
+
+    <TextView
+        android:id="@+id/yoruText1"
+        android:layout_width="30dp"
+        android:layout_height="20dp"
+        android:layout_below="@+id/yoru1"
+        android:layout_toEndOf="@+id/yoru1"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/toilet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/asaText1"
         android:layout_toEndOf="@+id/dayimageView"
-        android:layout_below="@+id/weightText"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="3dp"
+        android:text="トイレ"
         android:textAlignment="textStart"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textSize="12dp" />
+
+    <TextView
+        android:id="@+id/toiletText1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/toilet"
+        android:layout_marginStart="5dp"
+        android:layout_toRightOf="@+id/dayimageView" />
+
+    <TextView
+        android:id="@+id/kai"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toilet"
+        android:layout_toRightOf="@id/toiletText1"
+        android:layout_marginTop="3dp"
+        android:textSize="12dp"
+        android:text="回"/>
+
+    <TextView
+        android:id="@+id/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/asaText1"
+        android:layout_toRightOf="@+id/toilet"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="3dp"
+        android:text="体重"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/weightText1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/weight"
+        android:layout_marginStart="15dp"
+        android:layout_toRightOf="@+id/kai" />
+
+    <TextView
+        android:id="@+id/memo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/asaText1"
+        android:layout_toRightOf="@id/weight"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="3dp"
+        android:text="メモ"
+        android:textSize="12dp"/>
+
+    <TextView
+        android:id="@+id/detailmemo1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/memo"
+        android:layout_marginStart="40dp"
+        android:layout_toRightOf="@id/weightText1"
+        android:textSize="12dp" />
+
+
+
 
 
 

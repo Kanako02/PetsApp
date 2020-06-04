@@ -44,21 +44,70 @@
         android:text="ごはん"
         android:textSize="12sp" />
 
-    <EditText
-        android:id="@+id/foodTex"
-        android:layout_width="303dp"
+    <TextView
+        android:id="@+id/asa"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/food"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="朝"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/asaText"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/food"
+        android:layout_toRightOf="@+id/asa"
         android:maxLines="1"
-        />
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/hiru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/asaText"
+        android:text="昼"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/hiruText"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/food"
+        android:layout_toRightOf="@+id/hiru"
+        android:maxLines="1"
+        android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/yoru"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/food"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_toRightOf="@+id/hiruText"
+        android:text="夜"
+        android:textSize="14dp" />
+
+    <EditText
+        android:id="@+id/yoruText"
+        android:layout_width="60dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/food"
+        android:layout_toRightOf="@+id/yoru"
+        android:maxLines="1"
+        android:textSize="14dp" />
 
     <TextView
         android:id="@+id/toiletTex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/foodTex"
+        android:layout_below="@+id/asaText"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
         android:text="トイレの回数"
@@ -67,11 +116,11 @@
     <EditText
         android:id="@+id/toiletnum"
         android:layout_width="60dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/toiletTex"
         android:layout_marginStart="50dp"
         android:maxLines="1"
-        android:textSize="18sp" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/upButton"
@@ -104,7 +153,7 @@
         android:id="@+id/weightTex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/foodTex"
+        android:layout_below="@+id/asaText"
         android:layout_marginStart="85dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/toiletTex"
@@ -114,13 +163,13 @@
     <EditText
         android:id="@+id/weightnum"
         android:layout_width="60dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:layout_below="@+id/weightTex"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="0dp"
         android:layout_toRightOf="@+id/downButton"
         android:maxLines="1"
-        android:textSize="12sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/memoText"

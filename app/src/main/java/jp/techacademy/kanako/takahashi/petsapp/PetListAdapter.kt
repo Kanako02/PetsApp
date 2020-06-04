@@ -42,10 +42,6 @@ class PetListAdapter(context: Context) : BaseAdapter() {
         val nameText = convertView!!.findViewById<View>(R.id.nameText) as TextView
         nameText.text = mPetArrayList[position].name
 
-//        val resText = convertView.findViewById<View>(R.id.resTextView) as TextView
-//        val resNum = mQuestionArrayList[position].answers.size
-//        resText.text = resNum.toString()
-
         val bytes = mPetArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
