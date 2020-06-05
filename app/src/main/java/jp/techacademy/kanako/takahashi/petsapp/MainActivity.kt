@@ -87,8 +87,7 @@ class MainActivity : AppCompatActivity() {
                 progressBar.visibility = View.GONE
             }
         }
-
-        // UIの準備
+        
         // タイトルの設定
         supportActionBar?.title = "ログイン"
 
