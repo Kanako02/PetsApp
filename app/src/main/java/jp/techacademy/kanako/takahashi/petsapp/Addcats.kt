@@ -258,6 +258,3 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
         }
     }
 }
-
-//メインの写真撮って保存
-//名前、性別、誕生日、メモ、

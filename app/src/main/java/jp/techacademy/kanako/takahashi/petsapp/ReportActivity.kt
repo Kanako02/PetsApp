@@ -108,34 +108,35 @@ class ReportActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
         // ListViewを長押ししたときの処理
-//        listView.setOnItemLongClickListener { parent, _, position, _ ->
-//            // タスクを削除する
-//            val report = parent.adapter.getItem(position) as Report
-//
-//            // ダイアログを表示する
-//            val builder = AlertDialog.Builder(this@ReportActivity)
-//
-//            builder.setTitle("削除")
-//            builder.setMessage(report.day + "を削除しますか")
-//
-//            builder.setPositiveButton("OK"){_, _ ->
-//
-//                val mReportUid = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
-//                    ReportPATH).child(mReport.reportUid)
-//
-//                mReportUid.removeValue()
-//
+        listView.setOnItemLongClickListener { parent, _, position, _ ->
+            // タスクを削除する
+            val report = parent.adapter.getItem(position) as Report
+
+            // ダイアログを表示する
+            val builder = AlertDialog.Builder(this@ReportActivity)
+
+            builder.setTitle("削除")
+            builder.setMessage(report.day + "の記録を削除しますか")
+
+            builder.setPositiveButton("OK"){_, _ ->
+
+                val mReportUid = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
+                    ReportPATH).child(mReport.reportUid)
+
+                mReportUid.removeValue()
+
 ////                reloadListView()
-//            }
+            }
 //
-//            builder.setNegativeButton("CANCEL", null)
-//
-//            val dialog = builder.create()
-//            dialog.show()
-//
-//            true
-//        }
+            builder.setNegativeButton("CANCEL", null)
+
+            val dialog = builder.create()
+            dialog.show()
+
+            true
+        }
 //
 ////        reloadListView()
     }

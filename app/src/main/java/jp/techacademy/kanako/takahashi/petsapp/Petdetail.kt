@@ -43,8 +43,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
     private var mPictureUri: Uri? = null
 
-    private lateinit var mPet: Pet
-    private  lateinit var mReport: Report
+    private var mPet: Pet? = null            //nillに変更
+    private var mReport: Report? = null
 
     var countNumber = 0
 
@@ -60,9 +60,11 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
         // 渡ってきたオブジェクトを保持する
         val extras = intent.extras
-        mPet = extras.get("petUid") as Pet
 
-        mReport = extras.get("report") as Report   //追加
+
+        mPet = extras.get("petUid") as Pet?            //nullに変更
+
+        mReport = extras.get("report") as Report?   //追加
 
         today_button.setOnClickListener(mOnDateClickListener)
         dayimageView.setOnClickListener(this)
@@ -114,8 +116,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
-            val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet.petUid).child(
-                ReportPATH)    //useUid-petUid-ReportPATH
+            val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
+                ReportPATH)
 
             val data = HashMap<String, String>()
 
