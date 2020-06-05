@@ -3,6 +3,7 @@ package jp.techacademy.kanako.takahashi.petsapp
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.widget.ListView
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.app_ber.*
+import kotlinx.android.synthetic.main.content_allpets.*
 
 
 class ReportActivity : AppCompatActivity() {
@@ -21,6 +23,7 @@ class ReportActivity : AppCompatActivity() {
     private lateinit var mAdapter: ReportListAdapter
 
     private lateinit var mPet: Pet
+    private lateinit var  mReport: Report
 
     private lateinit var mReportRef: DatabaseReference
 
@@ -28,6 +31,7 @@ class ReportActivity : AppCompatActivity() {
         override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
             val map = dataSnapshot.value as Map<String, String>
 
+            val reportUid = dataSnapshot.key ?: ""
             val day = map["day"] ?: ""
             val asa = map["asa"] ?: ""
             val hiru = map["hiru"] ?: ""
@@ -43,7 +47,7 @@ class ReportActivity : AppCompatActivity() {
                     byteArrayOf()
                 }
 
-            val report = Report(day, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
+            val report = Report(reportUid, day, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
 
             mReportArrayList.add(report)
             mAdapter.notifyDataSetChanged()
@@ -71,15 +75,12 @@ class ReportActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_report)
         setSupportActionBar(toolbar)
-//        mToolbar = findViewById(R.id.toolbar)
 
         supportActionBar?.title = "お世話記録"
-
 
         // 渡ってきたオブジェクトを保持する
         val extras = intent.extras
         mPet = extras.get("petUid") as Pet
-
 
         // Firebase
         mDatabaseReference = FirebaseDatabase.getInstance().reference
@@ -90,26 +91,76 @@ class ReportActivity : AppCompatActivity() {
         mReportArrayList = ArrayList<Report>()
         mAdapter.notifyDataSetChanged()
 
-//        //AdapterをListにセット
-//        mReportArrayList.clear()
-//        mAdapter.setReportArrayList(mReportArrayList)
-//        mListView.adapter = mAdapter
-//
-//
-//
-//        mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
-//            ReportPATH)
-//        mReportRef.addChildEventListener(mReportListener)
-
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
 
             val intent = Intent(applicationContext, Petdetail::class.java)
-            intent.putExtra("petUid", mPet)
+            intent.putExtra("petUid", mPet)       //fabボタンの時はUidを渡す
             startActivity(intent)
         }
+
+        // ListViewをタップしたときの処理
+        mListView.setOnItemClickListener { parent, _, position, _ ->
+            // 入力・編集する画面に遷移させる
+            val intent = Intent(applicationContext, Petdetail::class.java)
+            intent.putExtra("report", mReportArrayList[position])      //追加
+            startActivity(intent)
+        }
+
+        // ListViewを長押ししたときの処理
+//        listView.setOnItemLongClickListener { parent, _, position, _ ->
+//            // タスクを削除する
+//            val report = parent.adapter.getItem(position) as Report
+//
+//            // ダイアログを表示する
+//            val builder = AlertDialog.Builder(this@ReportActivity)
+//
+//            builder.setTitle("削除")
+//            builder.setMessage(report.day + "を削除しますか")
+//
+//            builder.setPositiveButton("OK"){_, _ ->
+//
+//                val mReportUid = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
+//                    ReportPATH).child(mReport.reportUid)
+//
+//                mReportUid.removeValue()
+//
+////                reloadListView()
+//            }
+//
+//            builder.setNegativeButton("CANCEL", null)
+//
+//            val dialog = builder.create()
+//            dialog.show()
+//
+//            true
+//        }
+//
+////        reloadListView()
     }
+
+//    private fun reloadListView() {
+//        // Realmデータベースから、「全てのデータを取得して新しい日時順に並べた結果」を取得
+//        val taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
+//
+//        // 上記の結果を、TaskList としてセットする
+//        mTaskAdapter.taskList = mRealm.copyFromRealm(taskRealmResults)
+//
+//        // TaskのListView用のアダプタに渡す
+//        listView1.adapter = mTaskAdapter
+//
+//        // 表示を更新するために、アダプターにデータが変更されたことを知らせる
+//        mTaskAdapter.notifyDataSetChanged()
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//
+//        mDatabaseReference.close()
+//    }
+
+
 
     override fun onResume() {
         super.onResume()

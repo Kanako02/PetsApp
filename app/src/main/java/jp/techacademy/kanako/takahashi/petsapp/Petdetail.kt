@@ -44,12 +44,14 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
     private var mPictureUri: Uri? = null
 
     private lateinit var mPet: Pet
+    private  lateinit var mReport: Report
 
     var countNumber = 0
 
     private var mYear = 0
     private var mMonth = 0
     private var mDay = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +61,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         // 渡ってきたオブジェクトを保持する
         val extras = intent.extras
         mPet = extras.get("petUid") as Pet
+
+        mReport = extras.get("report") as Report   //追加
 
         today_button.setOnClickListener(mOnDateClickListener)
         dayimageView.setOnClickListener(this)

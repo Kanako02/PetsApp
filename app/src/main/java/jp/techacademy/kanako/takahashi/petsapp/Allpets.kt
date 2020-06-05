@@ -46,6 +46,8 @@ class Allpets : AppCompatActivity() {
             val reportMap = map["report"] as Map<String, String>?
             if (reportMap != null) {
                 for (key in reportMap.keys) {
+
+                    val reportUid = dataSnapshot.key ?: ""
                     val day = map["day"] ?: ""
                     val asa = map["asa"] ?: ""
                     val hiru = map["hiru"] ?: ""
@@ -60,7 +62,7 @@ class Allpets : AppCompatActivity() {
                         } else {
                             byteArrayOf()
                         }
-                    val report = Report(day, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
+                    val report = Report(reportUid, day, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
                     reportArrayList.add(report)
                 }
             }
@@ -109,7 +111,7 @@ class Allpets : AppCompatActivity() {
         mListView.setOnItemClickListener { parent, view, position, id ->
             // リストをタップしたら遷移
             val intent = Intent(applicationContext, ReportActivity::class.java)
-            intent.putExtra("petUid", mPetArrayList[position])                //pet→petUid
+            intent.putExtra("petUid", mPetArrayList[position])
             startActivity(intent)
         }
 
