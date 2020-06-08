@@ -77,6 +77,8 @@ class Allpets : AppCompatActivity() {
 
         override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
 
+            mAdapter.notifyDataSetChanged()
+
         }
 
         override fun onChildRemoved(dataSnapshot: DataSnapshot) {

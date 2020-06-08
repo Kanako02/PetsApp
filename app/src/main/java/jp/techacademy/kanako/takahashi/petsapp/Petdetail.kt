@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.activity_petdetail.*
 import kotlinx.android.synthetic.main.activity_petdetail.progressBar
 import kotlinx.android.synthetic.main.list_pets.*
+import kotlinx.android.synthetic.main.list_pets.view.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.HashMap
@@ -60,11 +61,22 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
         // 渡ってきたオブジェクトを保持する
         val extras = intent.extras
+        mPet = extras.get("petUid") as Pet?            //null許容型に変更
 
+        mReport = extras.get("reportUid") as Report?   //追加
 
-        mPet = extras.get("petUid") as Pet?            //nullに変更
+        println("mレポート$mReport")
 
-        mReport = extras.get("report") as Report?   //追加
+        if(mPet == null){       //編集の時
+            today_button.text = mReport!!.day
+//            dayimageView.drawable = mReport!!.imageBytes
+            asaText.setText(mReport!!.asa)
+            hiruText.setText(mReport!!.hiru)
+            yoruText.setText(mReport!!.yoru)
+            toiletnum.setText(mReport!!.toilet)
+            weightnum.setText(mReport!!.weight)
+            detailMemo.setText(mReport!!.detailmemo)
+        }
 
         today_button.setOnClickListener(mOnDateClickListener)
         dayimageView.setOnClickListener(this)
@@ -116,8 +128,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
-            val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
-                ReportPATH)
+//            val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
+//                ReportPATH)
 
             val data = HashMap<String, String>()
 
@@ -150,11 +162,18 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                 data["dayimage"] = bitmapString
             }
 
-            reportRef.push().setValue(data, this)
-            progressBar.visibility = View.VISIBLE
+            if (mReport == null){      //新規作成
+                val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
+                    ReportPATH)
+                reportRef.push().setValue(data, this)
 
-//            val intent = Intent(applicationContext, ReportActivity::class.java)
-//            startActivity(intent)
+            }else{                    //編集
+                val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
+                    ReportPATH).child(mReport!!.reportUid)
+                reportRef.push().setValue(data, this)
+
+            }
+            progressBar.visibility = View.VISIBLE
         }
     }
 

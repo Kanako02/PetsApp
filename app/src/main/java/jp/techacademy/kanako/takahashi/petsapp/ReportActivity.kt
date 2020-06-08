@@ -55,6 +55,8 @@ class ReportActivity : AppCompatActivity() {
 
         override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
 
+            mAdapter.notifyDataSetChanged()
+
         }
 
         override fun onChildRemoved(dataSnapshot: DataSnapshot) {
@@ -96,7 +98,7 @@ class ReportActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
 
             val intent = Intent(applicationContext, Petdetail::class.java)
-            intent.putExtra("petUid", mPet)       //fabボタンの時はUidを渡す
+            intent.putExtra("petUid", mPet)       //fabボタンの時はpetUidを渡す
             startActivity(intent)
         }
 
@@ -104,7 +106,7 @@ class ReportActivity : AppCompatActivity() {
         mListView.setOnItemClickListener { parent, _, position, _ ->
             // 入力・編集する画面に遷移させる
             val intent = Intent(applicationContext, Petdetail::class.java)
-            intent.putExtra("report", mReportArrayList[position])      //追加
+            intent.putExtra("reportUid", mReportArrayList[position])      //追加
             startActivity(intent)
         }
 
@@ -123,13 +125,12 @@ class ReportActivity : AppCompatActivity() {
             builder.setPositiveButton("OK"){_, _ ->
 
                 val mReportUid = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
-                    ReportPATH).child(mReport.reportUid)
+                    ReportPATH).child(mReport.reportUid)                                                                                                          //変更
+
+                println("mレポート$mReport")
 
                 mReportUid.removeValue()
-
-////                reloadListView()
             }
-//
             builder.setNegativeButton("CANCEL", null)
 
             val dialog = builder.create()
@@ -137,31 +138,7 @@ class ReportActivity : AppCompatActivity() {
 
             true
         }
-//
-////        reloadListView()
     }
-
-//    private fun reloadListView() {
-//        // Realmデータベースから、「全てのデータを取得して新しい日時順に並べた結果」を取得
-//        val taskRealmResults = mRealm.where(Task::class.java).findAll().sort("date", Sort.DESCENDING)
-//
-//        // 上記の結果を、TaskList としてセットする
-//        mTaskAdapter.taskList = mRealm.copyFromRealm(taskRealmResults)
-//
-//        // TaskのListView用のアダプタに渡す
-//        listView1.adapter = mTaskAdapter
-//
-//        // 表示を更新するために、アダプターにデータが変更されたことを知らせる
-//        mTaskAdapter.notifyDataSetChanged()
-//    }
-//
-//    override fun onDestroy() {
-//        super.onDestroy()
-//
-//        mDatabaseReference.close()
-//    }
-
-
 
     override fun onResume() {
         super.onResume()
