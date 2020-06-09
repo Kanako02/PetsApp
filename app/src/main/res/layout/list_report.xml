@@ -23,15 +23,15 @@
         android:layout_marginEnd="2dp"
         android:layout_marginBottom="2dp" />
 
-    <TextView
+    <ImageView
         android:id="@+id/food"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dayText"
         android:layout_toEndOf="@+id/dayimageView"
         android:layout_marginTop="3dp"
         android:layout_marginStart="5dp"
-        android:text="ごはん"
+        android:src="@drawable/food"
+        android:background="@color/colorButtonText"
         android:textSize="12dp" />
 
     <TextView
@@ -39,18 +39,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/food"
-        android:layout_toEndOf="@+id/dayimageView"
         android:layout_marginStart="5dp"
-        android:textSize="12dp"
-        android:text="朝"/>
+        android:layout_toEndOf="@+id/dayimageView"
+        android:text="朝"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/asaText1"
-        android:layout_width="30dp"
+        android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_below="@+id/asa1"
-        android:layout_toEndOf="@+id/asa1"
-        android:textSize="14dp" />
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/dayimageView"
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/hiru1"
@@ -60,93 +61,97 @@
         android:layout_marginStart="5dp"
         android:layout_toRightOf="@+id/asaText1"
         android:text="昼"
-        android:textSize="12dp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/hiruText1"
-        android:layout_width="30dp"
+        android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_below="@+id/hiru1"
-        android:layout_toEndOf="@+id/hiru1"
-        android:textSize="14dp" />
+        android:layout_alignStart="@+id/hiru1"
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/yoru1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/food"
-        android:layout_toRightOf="@+id/hiruText1"
         android:layout_marginStart="5dp"
-        android:textSize="12dp"
-        android:text="夜"/>
+        android:layout_toRightOf="@+id/hiruText1"
+        android:text="夜"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/yoruText1"
-        android:layout_width="30dp"
+        android:layout_width="50dp"
         android:layout_height="20dp"
         android:layout_below="@+id/yoru1"
-        android:layout_toEndOf="@+id/yoru1"
-        android:textSize="14dp" />
+        android:layout_alignStart="@+id/yoru1"
+        android:textSize="16dp" />
 
-    <TextView
+    <ImageView
         android:id="@+id/toilet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/asaText1"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
         android:layout_toEndOf="@+id/dayimageView"
-        android:layout_marginTop="3dp"
-        android:layout_marginStart="3dp"
-        android:text="トイレ"
+        android:background="@color/colorButtonText"
+        android:src="@drawable/toilet"
         android:textAlignment="textStart"
         android:textSize="12dp" />
 
     <TextView
         android:id="@+id/toiletText1"
-        android:layout_width="30dp"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_below="@+id/toilet"
-        android:layout_marginStart="5dp"
-        android:layout_toRightOf="@+id/dayimageView" />
+        android:layout_alignStart="@+id/toilet"
+        android:layout_marginTop="3dp"
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/kai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toilet"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/toiletText1"
-        android:layout_marginTop="3dp"
-        android:textSize="12dp"
-        android:text="回"/>
+        android:text="回"
+        android:textSize="12dp" />
 
-    <TextView
+    <ImageView
         android:id="@+id/weight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/asaText1"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@+id/toilet"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="3dp"
-        android:text="体重"
-        android:textSize="12dp"/>
+        android:background="@color/colorButtonText"
+        android:src="@drawable/weight"
+        android:textSize="12dp" />
 
     <TextView
         android:id="@+id/weightText1"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_below="@+id/weight"
-        android:layout_marginStart="15dp"
-        android:layout_toRightOf="@+id/kai" />
+        android:layout_alignStart="@+id/weight"
+        android:layout_marginTop="3dp"
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/memo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/asaText1"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/weight"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="3dp"
         android:text="メモ"
-        android:textSize="12dp"/>
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/detailmemo1"
@@ -157,17 +162,15 @@
         android:layout_toRightOf="@id/weightText1"
         android:textSize="12dp" />
 
-<!--    <ImageButton-->
-<!--        android:id="@+id/memoButton"-->
-<!--        android:layout_width="30dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_below="@+id/memo"-->
-<!--        android:layout_toRightOf="@id/detailmemo1"-->
-<!--        android:src="@drawable/ic_mail_24dp"-->
-<!--        android:background="@color/colorButtonText"/>-->
-
-
-
+    <ImageView
+        android:id="@+id/memoButton"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_below="@+id/memo"
+        android:layout_marginTop="3dp"
+        android:layout_alignStart="@+id/memo"
+        android:background="@color/colorButtonText"
+        android:src="@drawable/ic_mail_24dp" />
 
 
 </RelativeLayout>

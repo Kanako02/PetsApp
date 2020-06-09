@@ -30,7 +30,6 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
     private lateinit var mAdapter: ReportListAdapter
 
     private lateinit var mPet: Pet
-    private lateinit var mReport: Report
 
     private lateinit var mReportRef: DatabaseReference
 
@@ -138,12 +137,15 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
                 val mReportUid =
                     mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-                        .child(mPet.petUid).child(
-                        ReportPATH)
-                        .child(mReport.reportUid)                                             //変更
+                        .child(mPet.petUid).child(ReportPATH)
+                        .child(report.reportUid)                       //変更
 
                 mReportUid.removeValue()
+
+                mReportArrayList.remove(report)     //追加　
+                mAdapter.notifyDataSetChanged()
             }
+
             builder.setNegativeButton("CANCEL", null)
 
             val dialog = builder.create()
@@ -172,7 +174,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             mToolbar.title = "ペット追加登録"
 
 //            val intent = Intent(applicationContext, Addcats::class.java)    //ユーザーID
-////            startActivity(intent)
+//            startActivity(intent)
 
         } else if (id == R.id.nav_album) {
             mToolbar.title = "アルバム"

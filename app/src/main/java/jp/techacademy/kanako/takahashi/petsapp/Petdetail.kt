@@ -63,20 +63,16 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         val extras = intent.extras
         mPet = extras.get("petUid") as Pet
 
-        mReport = extras.get("reportUid") as Report?   //追加
+        mReport = extras.get("reportUid") as Report?
 
-       println("mペット$mPet")
+        println("mペット$mPet")
+
+        var countNumber = 0   //移動
 
         if(mReport != null){
             today_button.text = mReport!!.day
 
             val bmp = BitmapFactory.decodeByteArray(mReport!!.imageBytes, 0, mReport!!.imageBytes.size)
-//            image.setImageBitmap(
-//                Bitmap.createScaledBitmap(
-//                    bmp, image.getWidth(),
-//                    image.getHeight(), false
-//                )
-//            )
 
             dayimageView.setImageBitmap(bmp)
             asaText.setText(mReport!!.asa)
@@ -85,6 +81,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             toiletnum.setText(mReport!!.toilet)
             weightnum.setText(mReport!!.weight)
             detailMemo.setText(mReport!!.detailmemo)
+
+            countNumber = mReport!!.toilet.toInt()
         }
 
         today_button.setOnClickListener(mOnDateClickListener)
@@ -100,10 +98,6 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         mYear = calendar.get(Calendar.YEAR)
         mMonth = calendar.get(Calendar.MONTH)
         mDay = calendar.get(Calendar.DAY_OF_MONTH)
-
-
-        var countNumber = 0   //移動
-
 
         upButton.setOnClickListener {
             countNumber++
@@ -138,6 +132,9 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             // キーボードが出てたら閉じる
             val im = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
+
+            val intent = Intent(applicationContext, ReportActivity::class.java);
+            intent.putExtra("reportUid", mReport)
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
 //            val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
@@ -174,7 +171,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                 data["dayimage"] = bitmapString
             }
 
-            if (mReport == null){      //新規作成
+            if (mReport == null){ //新規作成
+
                 val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
                     ReportPATH)
                 reportRef.push().setValue(data, this)
