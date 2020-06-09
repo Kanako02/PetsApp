@@ -3,16 +3,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_hobby"
-            android:title="プロフィール"/>
+            android:id="@+id/nav_profile"
+            android:title="プロフィール" />
         <item
-            android:id="@+id/nav_life"
+            android:id="@+id/nav_add"
             android:title="ペット登録"/>
         <item
-            android:id="@+id/nav_health"
+            android:id="@+id/nav_album"
             android:title="アルバム"/>
-        <item
-            android:id="@+id/nav_compter"
-            android:title="ログアウト"/>
+
+<!--        <item-->
+<!--            android:id="@+id/nav_logout"-->
+<!--            android:title="ログアウト"/>-->
+
     </group>
 </menu>

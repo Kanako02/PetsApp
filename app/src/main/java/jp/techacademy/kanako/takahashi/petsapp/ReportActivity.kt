@@ -2,10 +2,17 @@ package jp.techacademy.kanako.takahashi.petsapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.NavigationView
 import android.support.design.widget.Snackbar
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Base64
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.ListView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -14,7 +21,7 @@ import kotlinx.android.synthetic.main.app_ber.*
 import kotlinx.android.synthetic.main.content_allpets.*
 
 
-class ReportActivity : AppCompatActivity() {
+class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
 
     private lateinit var mDatabaseReference: DatabaseReference
@@ -23,9 +30,11 @@ class ReportActivity : AppCompatActivity() {
     private lateinit var mAdapter: ReportListAdapter
 
     private lateinit var mPet: Pet
-    private lateinit var  mReport: Report
+    private lateinit var mReport: Report
 
     private lateinit var mReportRef: DatabaseReference
+
+    private lateinit var mToolbar: Toolbar
 
     private val mReportListener = object : ChildEventListener {
         override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
@@ -47,7 +56,7 @@ class ReportActivity : AppCompatActivity() {
                     byteArrayOf()
                 }
 
-            val report = Report(reportUid, day, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
+            val report = Report(reportUid, day, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
 
             mReportArrayList.add(report)
             mAdapter.notifyDataSetChanged()
@@ -78,6 +87,8 @@ class ReportActivity : AppCompatActivity() {
         setContentView(R.layout.activity_report)
         setSupportActionBar(toolbar)
 
+        mToolbar = findViewById(R.id.toolbar)
+
         supportActionBar?.title = "お世話記録"
 
         // 渡ってきたオブジェクトを保持する
@@ -97,7 +108,7 @@ class ReportActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
 
-            val intent = Intent(applicationContext, Petdetail::class.java)
+            intent = Intent(applicationContext, Petdetail::class.java)
             intent.putExtra("petUid", mPet)       //fabボタンの時はpetUidを渡す
             startActivity(intent)
         }
@@ -105,9 +116,10 @@ class ReportActivity : AppCompatActivity() {
         // ListViewをタップしたときの処理
         mListView.setOnItemClickListener { parent, _, position, _ ->
             // 入力・編集する画面に遷移させる
-            val intent = Intent(applicationContext, Petdetail::class.java)
-            intent.putExtra("reportUid", mReportArrayList[position])      //追加
-            startActivity(intent)
+            val intent = Intent(applicationContext, Petdetail::class.java);
+            intent.putExtra("reportUid", mReportArrayList[position]);
+            intent.putExtra("petUid", mPet);                             //mPetも渡す
+            startActivity(intent);
         }
 
 
@@ -122,12 +134,13 @@ class ReportActivity : AppCompatActivity() {
             builder.setTitle("削除")
             builder.setMessage(report.day + "の記録を削除しますか")
 
-            builder.setPositiveButton("OK"){_, _ ->
+            builder.setPositiveButton("OK") { _, _ ->
 
-                val mReportUid = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
-                    ReportPATH).child(mReport.reportUid)                                                                                                          //変更
-
-                println("mレポート$mReport")
+                val mReportUid =
+                    mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .child(mPet.petUid).child(
+                        ReportPATH)
+                        .child(mReport.reportUid)                                             //変更
 
                 mReportUid.removeValue()
             }
@@ -138,6 +151,39 @@ class ReportActivity : AppCompatActivity() {
 
             true
         }
+
+        // ナビゲーションドロワーの設定
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        val toggle = ActionBarDrawerToggle(this, drawer, mToolbar, R.string.app_name, R.string.app_name)
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.nav_profile) {
+            mToolbar.title = "プロフィール"
+
+        } else if (id == R.id.nav_add) {
+            mToolbar.title = "ペット追加登録"
+
+//            val intent = Intent(applicationContext, Addcats::class.java)    //ユーザーID
+////            startActivity(intent)
+
+        } else if (id == R.id.nav_album) {
+            mToolbar.title = "アルバム"
+
+//        } else if (id == R.id.nav_logout) {
+//            mToolbar.title = "ログアウト"
+    }
+
+        val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
+        drawer.closeDrawer(GravityCompat.START)
+        return true
     }
 
     override fun onResume() {
@@ -150,7 +196,8 @@ class ReportActivity : AppCompatActivity() {
 
 
 
-        mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid) .child(mPet.petUid).child(
+        mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .child(mPet.petUid).child(
             ReportPATH)
         mReportRef.addChildEventListener(mReportListener)
 

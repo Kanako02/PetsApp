@@ -22,6 +22,7 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -44,10 +45,9 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
     private var mPictureUri: Uri? = null
 
-    private var mPet: Pet? = null            //nillに変更
-    private var mReport: Report? = null
 
-    var countNumber = 0
+    private lateinit var mPet: Pet
+    private var mReport: Report? = null
 
     private var mYear = 0
     private var mMonth = 0
@@ -61,15 +61,24 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
         // 渡ってきたオブジェクトを保持する
         val extras = intent.extras
-        mPet = extras.get("petUid") as Pet?            //null許容型に変更
+        mPet = extras.get("petUid") as Pet
 
         mReport = extras.get("reportUid") as Report?   //追加
 
-        println("mレポート$mReport")
+       println("mペット$mPet")
 
-        if(mPet == null){       //編集の時
+        if(mReport != null){
             today_button.text = mReport!!.day
-//            dayimageView.drawable = mReport!!.imageBytes
+
+            val bmp = BitmapFactory.decodeByteArray(mReport!!.imageBytes, 0, mReport!!.imageBytes.size)
+//            image.setImageBitmap(
+//                Bitmap.createScaledBitmap(
+//                    bmp, image.getWidth(),
+//                    image.getHeight(), false
+//                )
+//            )
+
+            dayimageView.setImageBitmap(bmp)
             asaText.setText(mReport!!.asa)
             hiruText.setText(mReport!!.hiru)
             yoruText.setText(mReport!!.yoru)
@@ -91,6 +100,9 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         mYear = calendar.get(Calendar.YEAR)
         mMonth = calendar.get(Calendar.MONTH)
         mDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+
+        var countNumber = 0   //移動
 
 
         upButton.setOnClickListener {
@@ -167,13 +179,15 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                     ReportPATH)
                 reportRef.push().setValue(data, this)
 
-            }else{                    //編集
+            }else{                    //編集するとき　mPetがnull
                 val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
                     ReportPATH).child(mReport!!.reportUid)
-                reportRef.push().setValue(data, this)
 
+                reportRef.updateChildren(data as Map<String, Any>,this)
             }
+
             progressBar.visibility = View.VISIBLE
+
         }
     }
 

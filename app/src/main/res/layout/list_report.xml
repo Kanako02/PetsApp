@@ -150,17 +150,21 @@
 
     <TextView
         android:id="@+id/detailmemo1"
-        android:layout_width="30dp"
+        android:layout_width="10dp"
         android:layout_height="30dp"
         android:layout_below="@+id/memo"
         android:layout_marginStart="40dp"
         android:layout_toRightOf="@id/weightText1"
         android:textSize="12dp" />
 
-
-
-
-
+<!--    <ImageButton-->
+<!--        android:id="@+id/memoButton"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"-->
+<!--        android:layout_below="@+id/memo"-->
+<!--        android:layout_toRightOf="@id/detailmemo1"-->
+<!--        android:src="@drawable/ic_mail_24dp"-->
+<!--        android:background="@color/colorButtonText"/>-->
 
 
 
