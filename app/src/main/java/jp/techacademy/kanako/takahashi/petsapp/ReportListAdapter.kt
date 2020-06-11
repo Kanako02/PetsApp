@@ -58,8 +58,12 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
         val weightText = convertView.findViewById<View>(R.id.weightText1) as TextView
          weightText.text = mReportArrayList[position].weight
 
-        val memoText = convertView.findViewById<View>(R.id.detailmemo1) as TextView
-        memoText.text = mReportArrayList[position].detailmemo
+        if (mReportArrayList[position].detailmemo == null){
+           convertView.findViewById<View>(R.id.memoic) .visibility = View.GONE
+        }
+
+//        val memoText = convertView.findViewById<View>(R.id.detailmemo1) as TextView
+//        memoText.text = mReportArrayList[position].detailmemo
 
 
         val bytes = mReportArrayList[position].imageBytes

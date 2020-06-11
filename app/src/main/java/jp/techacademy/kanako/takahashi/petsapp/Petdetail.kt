@@ -18,15 +18,15 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.activity_petdetail.*
 import kotlinx.android.synthetic.main.activity_petdetail.progressBar
@@ -43,6 +43,9 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         private val CHOOSER_REQUEST_CODE = 100
     }
 
+    private lateinit var mDatabaseReference: DatabaseReference
+    private lateinit var mReportRef: DatabaseReference
+
     private var mPictureUri: Uri? = null
 
 
@@ -53,11 +56,14 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
     private var mMonth = 0
     private var mDay = 0
 
+    private var mcheckflag = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_petdetail)
         supportActionBar?.title = "今日のお世話記録"
+
+        mDatabaseReference = FirebaseDatabase.getInstance().reference
 
         // 渡ってきたオブジェクトを保持する
         val extras = intent.extras
@@ -69,11 +75,10 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
         var countNumber = 0   //移動
 
-        if(mReport != null){
+        if (mReport != null) {
             today_button.text = mReport!!.day
-
-            val bmp = BitmapFactory.decodeByteArray(mReport!!.imageBytes, 0, mReport!!.imageBytes.size)
-
+            val bmp =
+                BitmapFactory.decodeByteArray(mReport!!.imageBytes, 0, mReport!!.imageBytes.size)
             dayimageView.setImageBitmap(bmp)
             asaText.setText(mReport!!.asa)
             hiruText.setText(mReport!!.hiru)
@@ -82,6 +87,10 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             weightnum.setText(mReport!!.weight)
             detailMemo.setText(mReport!!.detailmemo)
 
+            if (mReport!!.toilet == null) {
+
+            }
+
             countNumber = mReport!!.toilet.toInt()
         }
 
@@ -89,9 +98,9 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         dayimageView.setOnClickListener(this)
         detailButton.setOnClickListener(this)
 
-        var toiletnum = findViewById(R.id.toiletnum) as EditText
-        val upButton = findViewById(R.id.upButton) as Button
-        val downButton = findViewById(R.id.downButton) as Button
+        var toiletnum = findViewById<EditText>(R.id.toiletnum)
+        val upButton = findViewById<Button>(R.id.upButton)
+        val downButton = findViewById<Button>(R.id.downButton)
 
 
         val calendar = Calendar.getInstance()
@@ -99,18 +108,29 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         mMonth = calendar.get(Calendar.MONTH)
         mDay = calendar.get(Calendar.DAY_OF_MONTH)
 
+        if (mReport != null) {
+            today_button.isEnabled = false
+        }
+
+
         upButton.setOnClickListener {
             countNumber++
             toiletnum.setText(Integer.toString(countNumber))
         }
 
         downButton.setOnClickListener {
-            countNumber--
-            toiletnum.setText(Integer.toString(countNumber))
+            if (countNumber > 0) {
+                countNumber--
+                toiletnum.setText(Integer.toString(countNumber))
+            }
         }
     }
 
     override fun onClick(v: View) {
+
+        val extras = intent.extras
+        mReport = extras.get("reportUid") as Report?
+
         if (v === dayimageView) {
             // パーミッションの許可状態を確認する
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -133,12 +153,12 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             val im = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
-            val intent = Intent(applicationContext, ReportActivity::class.java);
-            intent.putExtra("reportUid", mReport)
+            if (mcheckflag) {
+                Snackbar.make(today_button, "指定された日付はすでに登録されています", Snackbar.LENGTH_LONG).show()
+                return
+            }
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
-//            val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
-//                ReportPATH)
 
             val data = HashMap<String, String>()
 
@@ -165,23 +185,27 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             if (drawable != null) {
                 val bitmap = drawable.bitmap
                 val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+                bitmap?.compress(Bitmap.CompressFormat.JPEG, 80, baos)
                 val bitmapString = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
 
                 data["dayimage"] = bitmapString
             }
 
-            if (mReport == null){ //新規作成
+            if (mReport == null) { //新規作成
 
-                val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
-                    ReportPATH)
+                val reportRef =
+                    dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .child(mPet.petUid).child(
+                        ReportPATH)
                 reportRef.push().setValue(data, this)
 
-            }else{                    //編集するとき　mPetがnull
-                val reportRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid).child(
-                    ReportPATH).child(mReport!!.reportUid)
+            } else {                    //編集するとき　mPetがnull
+                val reportRef =
+                    dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .child(mPet.petUid).child(
+                        ReportPATH).child(mReport!!.reportUid)
 
-                reportRef.updateChildren(data as Map<String, Any>,this)
+                reportRef.updateChildren(data as Map<String, Any>, this)
             }
 
             progressBar.visibility = View.VISIBLE
@@ -189,7 +213,11 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         when (requestCode) {
             PERMISSIONS_REQUEST_CODE -> {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -234,7 +262,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             val matrix = Matrix()
             matrix.postScale(scale, scale)
 
-            val resizedImage = Bitmap.createBitmap(image, 0, 0, imageWidth, imageHeight, matrix, true)
+            val resizedImage =
+                Bitmap.createBitmap(image, 0, 0, imageWidth, imageHeight, matrix, true)
 
             // BitmapをImageViewに設定する
             dayimageView.setImageBitmap(resizedImage)
@@ -280,7 +309,39 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                     "%02d",
                     mMonth + 1) + "/" + String.format("%02d", mDay)
                 today_button.text = dateString
+
+
+                mcheckflag = false
+
+                if (mReport == null) {
+                    mReportRef =
+                        mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                            .child(mPet.petUid).child(ReportPATH)
+
+                    val query = mReportRef.orderByChild("day")
+                        .equalTo(dateString)   //report以下のday;選択した日付のデータを取得
+
+                    query.addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) { //検索結果がsnapshotに返ってくる
+                            println("テスト$snapshot")
+
+                            if (snapshot.exists()) {
+                                Snackbar.make(
+                                    today_button,
+                                    "指定された日付はすでに登録されています",
+                                    Snackbar.LENGTH_LONG).show()
+                                mcheckflag = true
+                            } else {
+
+                            }
+                        }
+
+                        override fun onCancelled(firebaseError: DatabaseError) {}
+                    })
+                }
+
             }, mYear, mMonth, mDay)
+
         datePickerDialog.show()
     }
 
@@ -290,7 +351,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         if (databaseError == null) {
             finish()
         } else {
-            Snackbar.make(findViewById(android.R.id.content), "登録に失敗しました", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(findViewById(android.R.id.content), "登録に失敗しました", Snackbar.LENGTH_LONG)
+                .show()
         }
     }
 }

@@ -170,11 +170,13 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         if (id == R.id.nav_profile) {
             mToolbar.title = "プロフィール"
 
+//プロフィール画面に遷移、petuidを渡す　AddCatでFirebase更新
+
         } else if (id == R.id.nav_add) {
             mToolbar.title = "ペット追加登録"
 
-//            val intent = Intent(applicationContext, Addcats::class.java)    //ユーザーID
-//            startActivity(intent)
+            val intent = Intent(applicationContext, Addcats::class.java)
+            startActivity(intent)
 
         } else if (id == R.id.nav_album) {
             mToolbar.title = "アルバム"
