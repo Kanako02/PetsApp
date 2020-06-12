@@ -114,6 +114,7 @@ class Allpets : AppCompatActivity() {
             // リストをタップしたら遷移
             val intent = Intent(applicationContext, ReportActivity::class.java)
             intent.putExtra("petUid", mPetArrayList[position])
+//            intent.putExtra("name",mPetArrayList[position])
             startActivity(intent)
         }
 

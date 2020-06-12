@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="135dp"
+        android:layout_marginStart="150dp"
         android:layout_marginTop="5dp"
-        android:text="プロフィール写真登録"
+        android:text="ペット写真登録"
         android:textSize="12sp" />
 
     <ImageView
@@ -25,6 +25,7 @@
         android:layout_below="@+id/textView1"
         android:background="#d3d3d3"
         android:layout_centerHorizontal="true"
+        android:src="@drawable/neko"
         android:layout_marginTop="5dp"/>
 
     <TextView
@@ -34,7 +35,7 @@
         android:layout_below="@+id/topimageView"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
-        android:text="*猫の名前"
+        android:text="*ペットの名前"
         android:textSize="12sp" />
 
     <EditText
@@ -54,7 +55,7 @@
         android:layout_below="@+id/nameText"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
-        android:text="猫の性別"
+        android:text="性別"
         android:textSize="12sp" />
 
     <RadioGroup
@@ -93,7 +94,7 @@
         android:layout_below = "@+id/radioGroup"
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
-        android:text="猫の誕生日・年齢"
+        android:text="誕生日・年齢"
         android:textSize="12sp" />
 
     <Button

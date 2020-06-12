@@ -108,7 +108,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 .setAction("Action", null).show()
 
             intent = Intent(applicationContext, Petdetail::class.java)
-            intent.putExtra("petUid", mPet)       //fabボタンの時はpetUidを渡す
+            intent.putExtra("petUid", mPet); //fabボタンの時はpetUidを渡す
             startActivity(intent)
         }
 

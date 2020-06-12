@@ -2,4 +2,6 @@
     <string name="app_name">PetsApp</string>
     <string name="title_activity_allpets">Allpets</string>
     <string name="title_activity_report">ReportActivity</string>
+<!--        <string name="description">picture</string>-->
+
 </resources>

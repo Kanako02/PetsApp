@@ -48,7 +48,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcats)
-        supportActionBar?.title = "猫のプロフィール登録"
+        supportActionBar?.title = "ペットのプロフィール登録"
 
         profileButton.setOnClickListener(this)
         topimageView.setOnClickListener(this)
