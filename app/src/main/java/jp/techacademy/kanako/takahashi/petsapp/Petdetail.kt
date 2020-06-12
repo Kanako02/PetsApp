@@ -83,15 +83,15 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             asaText.setText(mReport!!.asa)
             hiruText.setText(mReport!!.hiru)
             yoruText.setText(mReport!!.yoru)
-            toiletnum.setText(mReport!!.toilet)
             weightnum.setText(mReport!!.weight)
             detailMemo.setText(mReport!!.detailmemo)
 
-            if (mReport!!.toilet == null) {
-
+            if (mReport!!.toilet == "") {
+                countNumber = 0
+            }else{
+                toiletnum.setText(mReport!!.toilet)
+                countNumber = mReport!!.toilet.toInt()
             }
-
-            countNumber = mReport!!.toilet.toInt()
         }
 
         today_button.setOnClickListener(mOnDateClickListener)
@@ -108,9 +108,9 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         mMonth = calendar.get(Calendar.MONTH)
         mDay = calendar.get(Calendar.DAY_OF_MONTH)
 
-        if (mReport != null) {
-            today_button.isEnabled = false
-        }
+//        if (mReport != null) {
+//            today_button.isEnabled = false
+//        }
 
 
         upButton.setOnClickListener {
@@ -154,7 +154,12 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
             if (mcheckflag) {
-                Snackbar.make(today_button, "指定された日付はすでに登録されています", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(v, "指定された日付はすでに登録されています", Snackbar.LENGTH_LONG).show()
+                return
+            }
+
+            if (today_button.text.toString() == "----/--/--"){
+                Snackbar.make(v, "日付を登録してください", Snackbar.LENGTH_LONG).show()
                 return
             }
 

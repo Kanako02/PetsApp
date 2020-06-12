@@ -33,7 +33,7 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-//        val item = getItem(count - 1 - position)
+
         var convertView = convertView
 
         if (convertView == null) {
@@ -58,13 +58,10 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
         val weightText = convertView.findViewById<View>(R.id.weightText1) as TextView
          weightText.text = mReportArrayList[position].weight
 
-        if (mReportArrayList[position].detailmemo == null){
-           convertView.findViewById<View>(R.id.memoic) .visibility = View.GONE
+        val mamoIc = convertView.findViewById<View>(R.id.memoic) as ImageView
+        if (mReportArrayList[position].detailmemo != ""){
+           mamoIc.setImageResource(R.drawable.memo)
         }
-
-//        val memoText = convertView.findViewById<View>(R.id.detailmemo1) as TextView
-//        memoText.text = mReportArrayList[position].detailmemo
-
 
         val bytes = mReportArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
