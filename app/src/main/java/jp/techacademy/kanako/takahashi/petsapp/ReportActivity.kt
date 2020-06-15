@@ -11,12 +11,10 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Base64
-import android.view.Menu
 import android.view.MenuItem
 import android.widget.ListView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.app_ber.*
 import kotlinx.android.synthetic.main.content_allpets.*
 
@@ -181,8 +179,11 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         } else if (id == R.id.nav_album) {
             mToolbar.title = "アルバム"
 
-//        } else if (id == R.id.nav_logout) {
-//            mToolbar.title = "ログアウト"
+            val intent = Intent(applicationContext, AlbumActivity::class.java);
+            intent.putExtra("petUid", mPet)
+//            intent.putExtra("reportUid", mReportArrayList);
+            startActivity(intent);
+
     }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)

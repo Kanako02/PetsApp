@@ -32,8 +32,9 @@
         android:layout_height="120dp"
         android:layout_below="@+id/today_button"
         android:background="#d3d3d3"
-        android:src="@drawable/neko"
         android:layout_centerHorizontal="true" />
+
+<!--    android:src="@drawable/neko"-->
 
     <TextView
         android:id="@+id/food"

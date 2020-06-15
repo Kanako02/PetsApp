@@ -25,7 +25,6 @@
         android:layout_below="@+id/textView1"
         android:background="#d3d3d3"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/neko"
         android:layout_marginTop="5dp"/>
 
     <TextView
