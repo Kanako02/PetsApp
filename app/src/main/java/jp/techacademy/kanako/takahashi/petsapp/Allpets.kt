@@ -3,6 +3,7 @@ package jp.techacademy.kanako.takahashi.petsapp
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Base64
 import android.widget.ListView
@@ -11,6 +12,7 @@ import com.google.firebase.database.*
 
 import kotlinx.android.synthetic.main.activity_allpets.*
 import kotlinx.android.synthetic.main.activity_allpets.fab
+import kotlinx.android.synthetic.main.content_allpets.*
 
 class Allpets : AppCompatActivity() {
 
@@ -125,6 +127,38 @@ class Allpets : AppCompatActivity() {
             val intent = Intent(applicationContext, Addcats::class.java)
             startActivity(intent)
         }
+
+        // ListViewを長押ししたときの処理
+        listView.setOnItemLongClickListener { parent, _, position, _ ->
+            // タスクを削除する
+            val pet = parent.adapter.getItem(position) as Pet
+
+            // ダイアログを表示する
+            val builder = AlertDialog.Builder(this@Allpets)
+
+            builder.setTitle("削除")
+            builder.setMessage(pet.name + "を削除しますか")
+
+            builder.setPositiveButton("OK") { _, _ ->
+
+                val mPetUid =
+                    mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                        .child(pet.petUid) //変更
+
+                mPetUid.removeValue()
+
+                mPetArrayList.remove(pet)     //追加　
+                mAdapter.notifyDataSetChanged()
+            }
+
+            builder.setNegativeButton("CANCEL", null)
+
+            val dialog = builder.create()
+            dialog.show()
+
+            true
+        }
+
     }
 
     override fun onResume() {
