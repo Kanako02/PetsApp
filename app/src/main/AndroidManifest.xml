@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AlbumActivity"></activity>
         <activity android:name=".Petdetail" />
+        <activity android:name=".DetailAlbumActivity"/>
         <activity
             android:name=".ReportActivity"
             android:label="@string/title_activity_report"

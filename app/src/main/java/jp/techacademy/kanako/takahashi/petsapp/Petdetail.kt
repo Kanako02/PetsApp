@@ -18,20 +18,16 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.util.Base64
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.RadioButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.activity_petdetail.*
 import kotlinx.android.synthetic.main.activity_petdetail.progressBar
-import kotlinx.android.synthetic.main.list_pets.*
-import kotlinx.android.synthetic.main.list_pets.view.*
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.HashMap
@@ -44,10 +40,11 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
     }
 
     private lateinit var mDatabaseReference: DatabaseReference
-    private lateinit var mReportRef: DatabaseReference
+
+    private lateinit var mDayRef: DatabaseReference
+    private  lateinit var mReportRef: DatabaseReference
 
     private var mPictureUri: Uri? = null
-
 
     private lateinit var mPet: Pet
     private var mReport: Report? = null
@@ -63,8 +60,6 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         setContentView(R.layout.activity_petdetail)
         supportActionBar?.title = "今日のお世話記録"
 
-        mDatabaseReference = FirebaseDatabase.getInstance().reference
-
         // 渡ってきたオブジェクトを保持する
         val extras = intent.extras
         mPet = extras.get("petUid") as Pet
@@ -74,6 +69,7 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         println("mペット$mPet")
 
         var countNumber = 0   //移動
+        radio.check(good.id)
 
         if (mReport != null) {
             today_button.text = mReport!!.day
@@ -88,9 +84,17 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
             if (mReport!!.toilet == "") {
                 countNumber = 0
-            }else{
+            } else {
                 toiletnum.setText(mReport!!.toilet)
                 countNumber = mReport!!.toilet.toInt()
+            }
+
+            if (mReport!!.condition == "とても元気") {
+                radio.check(good.id)
+            } else if (mReport!!.condition == "ふつう") {
+                radio.check(ave.id)
+            } else {
+                radio.check(bad.id)
             }
         }
 
@@ -102,29 +106,28 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         val upButton = findViewById<Button>(R.id.upButton)
         val downButton = findViewById<Button>(R.id.downButton)
 
-
         val calendar = Calendar.getInstance()
         mYear = calendar.get(Calendar.YEAR)
         mMonth = calendar.get(Calendar.MONTH)
         mDay = calendar.get(Calendar.DAY_OF_MONTH)
 
-//        if (mReport != null) {
-//            today_button.isEnabled = false
-//        }
-
-
         upButton.setOnClickListener {
             countNumber++
             toiletnum.setText(Integer.toString(countNumber))
         }
-
         downButton.setOnClickListener {
             if (countNumber > 0) {
                 countNumber--
                 toiletnum.setText(Integer.toString(countNumber))
             }
         }
+
+        mDatabaseReference = FirebaseDatabase.getInstance().reference
+        mDayRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .child(mPet.petUid).child(ReportPATH)
+//        mDayRef.addChildEventListener(mEventListener)
     }
+
 
     override fun onClick(v: View) {
 
@@ -165,9 +168,13 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
 
+            val id = radio.checkedRadioButtonId //radiobutton
+            val checkedRadioButton = findViewById<RadioButton>(id)
+
             val data = HashMap<String, String>()
 
             val day = today_button.text.toString()
+            val condition = checkedRadioButton.text.toString()
             val asa = asaText.text.toString()
             val hiru = hiruText.text.toString()
             val yoru = yoruText.text.toString()
@@ -176,6 +183,7 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             val detailmemo = detailMemo.text.toString()
 
             data["day"] = day
+            data["condition"] = condition
             data["asa"] = asa
             data["hiru"] = hiru
             data["yoru"] = yoru
@@ -212,9 +220,7 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
                 reportRef.updateChildren(data as Map<String, Any>, this)
             }
-
             progressBar.visibility = View.VISIBLE
-
         }
     }
 
@@ -314,36 +320,32 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                     "%02d",
                     mMonth + 1) + "/" + String.format("%02d", mDay)
                 today_button.text = dateString
-
-
                 mcheckflag = false
 
-                if (mReport == null) {
-                    mReportRef =
-                        mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-                            .child(mPet.petUid).child(ReportPATH)
-
-                    val query = mReportRef.orderByChild("day")
-                        .equalTo(dateString)   //report以下のday;選択した日付のデータを取得
-
-                    query.addValueEventListener(object : ValueEventListener {
-                        override fun onDataChange(snapshot: DataSnapshot) { //検索結果がsnapshotに返ってくる
-                            println("テスト$snapshot")
-
-                            if (snapshot.exists()) {
-                                Snackbar.make(
-                                    today_button,
-                                    "指定された日付はすでに登録されています",
-                                    Snackbar.LENGTH_LONG).show()
-                                mcheckflag = true
-                            } else {
-
-                            }
-                        }
-
-                        override fun onCancelled(firebaseError: DatabaseError) {}
-                    })
-                }
+//                if (mReport == null) {
+//                    mReportRef =
+//                        mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+//                            .child(mPet.petUid).child(ReportPATH)
+//
+//                    val query = mReportRef.orderByChild("day")
+//                        .equalTo(dateString)   //report以下のday;選択した日付のデータを取得
+//
+//                    query.addValueEventListener(object : ValueEventListener {
+//                        override fun onDataChange(snapshot: DataSnapshot) { //検索結果がsnapshotに返ってくる
+//                            println("テスト$snapshot")
+//
+//                            if (snapshot.exists()) {
+//                                Snackbar.make(
+//                                    today_button,
+//                                    "指定された日付はすでに登録されています",
+//                                    Snackbar.LENGTH_LONG).show()
+//                                mcheckflag = true
+//                            }
+//                        }
+//
+//                        override fun onCancelled(firebaseError: DatabaseError) {}
+//                    })
+//                }
 
             }, mYear, mMonth, mDay)
 

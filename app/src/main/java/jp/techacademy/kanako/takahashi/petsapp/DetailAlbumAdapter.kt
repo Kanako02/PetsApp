@@ -10,20 +10,20 @@ import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
 
-class AlbumAdapter (context: Context) : BaseAdapter() {
+class DetailAlbumAdapter (context: Context) : BaseAdapter() {
     private var mLayoutInflater: LayoutInflater
-    private var mAlbumArrayList = ArrayList<Pet>()
+    private var mDetailAlbumArrayList = ArrayList<Report>()
 
     init {
         mLayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 
     override fun getCount(): Int {
-        return mAlbumArrayList.size
+        return mDetailAlbumArrayList.size
     }
 
     override fun getItem(position: Int): Any {
-        return mAlbumArrayList[position]
+        return mDetailAlbumArrayList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -38,19 +38,28 @@ class AlbumAdapter (context: Context) : BaseAdapter() {
         }
 
         val albumText = convertView!!.findViewById<View>(R.id.albumday) as TextView
-        albumText.text = mAlbumArrayList[position].name
+        albumText.text = mDetailAlbumArrayList[position].day
 
-        val bytes = mAlbumArrayList[position].imageBytes
+//        val conIc = convertView.findViewById<View>(R.id.conIc) as ImageView
+//        if (mAlbumArrayList[position].condition == "とても元気"){
+//            conIc.setImageResource(R.drawable.ic_good_24dp)
+//        }else if (mAlbumArrayList[position].condition == "ふつう"){
+//            conIc.setImageResource(R.drawable.ic_ave_24dp)
+//        }else if (mAlbumArrayList[position].condition == "元気ない"){
+//            conIc.setImageResource(R.drawable.ic_bad_24dp)
+//        }
+
+        val bytes = mDetailAlbumArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
             val albumimage = convertView.findViewById<View>(R.id.albumimage) as ImageView
-                albumimage.setImageBitmap(image)
+            albumimage.setImageBitmap(image)
         }
 
         return convertView
     }
 
-    fun setAlbumArrayList(albumArrayList: ArrayList<Pet>) {
-        mAlbumArrayList = albumArrayList
+    fun setDetailAlbumArrayList(detailalbumArrayList: ArrayList<Report>) {
+        mDetailAlbumArrayList = detailalbumArrayList
     }
 }

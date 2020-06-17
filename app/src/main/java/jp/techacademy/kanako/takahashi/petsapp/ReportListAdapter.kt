@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.RadioGroup
 import android.widget.TextView
 
 import java.util.ArrayList
@@ -42,6 +43,16 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
 
         val dayText = convertView!!.findViewById<View>(R.id.dayText) as TextView
         dayText.text = mReportArrayList[position].day
+
+        val conIc = convertView.findViewById<View>(R.id.conIc) as ImageView
+        if (mReportArrayList[position].condition == "とても元気"){
+            conIc.setImageResource(R.drawable.ic_good_24dp)
+        }else if (mReportArrayList[position].condition == "ふつう"){
+            conIc.setImageResource(R.drawable.ic_ave_24dp)
+        }else if (mReportArrayList[position].condition == "元気ない"){
+            conIc.setImageResource(R.drawable.ic_bad_24dp)
+        }
+
 
         val asaText = convertView.findViewById<View>(R.id.asaText1) as TextView
         asaText.text = mReportArrayList[position].asa

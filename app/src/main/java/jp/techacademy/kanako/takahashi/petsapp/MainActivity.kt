@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mLoginListener: OnCompleteListener<AuthResult>
     private lateinit var mDataBaseReference: DatabaseReference
 
+    private var mPetArrayList = null
+
     private var mIsCreateAccount = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,20 +64,16 @@ class MainActivity : AppCompatActivity() {
         mLoginListener = OnCompleteListener { task ->
             if (task.isSuccessful) {
                 // 成功した場合
-//                val user = mAuth.currentUser
-//                val userRef = mDataBaseReference.child(UsersPATH).child(user!!.uid)
+//                val userRef = mDataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
 
                 // プログレスバーを非表示にする
                 progressBar.visibility = View.GONE
 
-//                val intent = Intent(applicationContext, Addcats::class.java)
-//                startActivity(intent)
-
                 val intent = Intent(applicationContext, Allpets::class.java)
                 startActivity(intent)
 
-//                // Activityを閉じる
-//                finish()
+                // Activityを閉じる
+                finish()
 
             } else {
                 // 失敗した場合

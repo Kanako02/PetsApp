@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.util.Base64
+import android.view.View
 import android.widget.ListView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -22,6 +23,8 @@ class Allpets : AppCompatActivity() {
     private lateinit var mAdapter: PetListAdapter
 
     private lateinit var mPetRef: DatabaseReference
+
+    private var mPet: Pet? = null
 
     private val mEventListener = object : ChildEventListener {
         override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
@@ -42,7 +45,6 @@ class Allpets : AppCompatActivity() {
                     byteArrayOf()
                 }
 
-
 //            ReportArrayListを追加
             val reportArrayList = ArrayList<Report>()
             val reportMap = map["report"] as Map<String, String>?
@@ -51,6 +53,7 @@ class Allpets : AppCompatActivity() {
 
                     val reportUid = dataSnapshot.key ?: ""
                     val day = map["day"] ?: ""
+                    val condition = map["condition"] ?:""
                     val asa = map["asa"] ?: ""
                     val hiru = map["hiru"] ?: ""
                     val yoru = map["yoru"] ?: ""
@@ -64,7 +67,7 @@ class Allpets : AppCompatActivity() {
                         } else {
                             byteArrayOf()
                         }
-                    val report = Report(reportUid, day, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
+                    val report = Report(reportUid, day, condition, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
                     reportArrayList.add(report)
                 }
             }
@@ -116,15 +119,14 @@ class Allpets : AppCompatActivity() {
             // リストをタップしたら遷移
             val intent = Intent(applicationContext, ReportActivity::class.java)
             intent.putExtra("petUid", mPetArrayList[position])
-//            intent.putExtra("name",mPetArrayList[position])
             startActivity(intent)
         }
-
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
             val intent = Intent(applicationContext, Addcats::class.java)
+            intent.putExtra("petUid", mPet)
             startActivity(intent)
         }
 
@@ -139,7 +141,7 @@ class Allpets : AppCompatActivity() {
             builder.setTitle("削除")
             builder.setMessage(pet.name + "を削除しますか")
 
-            builder.setPositiveButton("OK") { _, _ ->
+            builder.setPositiveButton("削除") { _, _ ->
 
                 val mPetUid =
                     mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -151,7 +153,7 @@ class Allpets : AppCompatActivity() {
                 mAdapter.notifyDataSetChanged()
             }
 
-            builder.setNegativeButton("CANCEL", null)
+            builder.setNegativeButton("キャンセル", null)
 
             val dialog = builder.create()
             dialog.show()
@@ -159,7 +161,37 @@ class Allpets : AppCompatActivity() {
             true
         }
 
+//        // ListViewを長押ししたときの処理
+//        listView.setOnItemLongClickListener { parent, _, position, _ ->
+//            showAlertDialog()
+//
+//            true
+//        }
+
     }
+
+//    private fun showAlertDialog() {
+//        // AlertDialog.Builderクラスを使ってAlertDialogの準備をする
+//        val alertDialogBuilder = AlertDialog.Builder(this)
+//        alertDialogBuilder.setTitle("タイトル")
+//        alertDialogBuilder.setMessage("メッセージ")
+//
+//        alertDialogBuilder.setNeutralButton("削除"){dialog, which ->
+//        }
+//
+//        alertDialogBuilder.setPositiveButton("キャンセル"){_,_ ->
+//        }
+//
+//        alertDialogBuilder.setNegativeButton("編集"){daialog, which->
+//            val intent = Intent(applicationContext, Addcats::class.java);
+//            intent.putExtra("petUid", mPetArrayList)
+//            startActivity(intent)
+//        }
+//
+//        // AlertDialogを作成して表示する
+//        val alertDialog = alertDialogBuilder.create()
+//        alertDialog.show()
+//    }
 
     override fun onResume() {
         super.onResume()

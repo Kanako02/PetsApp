@@ -39,6 +39,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             val reportUid = dataSnapshot.key ?: ""
             val day = map["day"] ?: ""
+            val condition = map["condition"] ?:""
             val asa = map["asa"] ?: ""
             val hiru = map["hiru"] ?: ""
             val yoru = map["yoru"] ?: ""
@@ -53,7 +54,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     byteArrayOf()
                 }
 
-            val report = Report(reportUid, day, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
+            val report = Report(reportUid, day, condition, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
 
             mReportArrayList.add(report)
             mAdapter.notifyDataSetChanged()
@@ -107,6 +108,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             intent = Intent(applicationContext, Petdetail::class.java)
             intent.putExtra("petUid", mPet); //fabボタンの時はpetUidを渡す
+            intent.putExtra("report", ReportPATH)
             startActivity(intent)
         }
 
@@ -131,7 +133,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             builder.setTitle("削除")
             builder.setMessage(report.day + "の記録を削除しますか")
 
-            builder.setPositiveButton("OK") { _, _ ->
+            builder.setPositiveButton("削除") { _, _ ->
 
                 val mReportUid =
                     mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -144,7 +146,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                 mAdapter.notifyDataSetChanged()
             }
 
-            builder.setNegativeButton("CANCEL", null)
+            builder.setNegativeButton("キャンセル", null)
 
             val dialog = builder.create()
             dialog.show()
@@ -166,22 +168,22 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val id = item.itemId
 
         if (id == R.id.nav_profile) {
-            mToolbar.title = "プロフィール"
+//            mToolbar.title = "プロフィール"
+            val intent = Intent(applicationContext, Addcats::class.java);
+            intent.putExtra("uid", mPet)
+            startActivity(intent)
 
-//プロフィール画面に遷移、petuidを渡す　AddCatでFirebase更新
-
-        } else if (id == R.id.nav_add) {
-            mToolbar.title = "ペット追加登録"
-
+        } else
+        if (id == R.id.nav_add) {
+//            mToolbar.title = "ペット追加登録"
             val intent = Intent(applicationContext, Addcats::class.java)
+            intent.putExtra("petUid", mPet)
             startActivity(intent)
 
         } else if (id == R.id.nav_album) {
-            mToolbar.title = "アルバム"
 
             val intent = Intent(applicationContext, AlbumActivity::class.java);
             intent.putExtra("petUid", mPet)
-//            intent.putExtra("reportUid", mReportArrayList);
             startActivity(intent);
 
     }

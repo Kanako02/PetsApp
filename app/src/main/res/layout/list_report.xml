@@ -5,13 +5,21 @@
 
     <TextView
         android:id="@+id/dayText"
-        android:layout_width="110dp"
+        android:layout_width="90dp"
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="2dp"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/conIc"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/dayText"/>
+
 
     <ImageView
         android:id="@+id/dayimageView"
@@ -30,9 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayText"
-        android:layout_toEndOf="@+id/dayimageView"
-        android:layout_marginTop="3dp"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/dayimageView"
         android:src="@drawable/food"
         android:textSize="12dp" />
 
@@ -42,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayText"
         android:layout_marginStart="7dp"
+        android:layout_marginTop="9dp"
         android:layout_toEndOf="@+id/food"
         android:text="朝"
         android:textSize="14sp" />
@@ -60,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayText"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="9dp"
         android:layout_toRightOf="@+id/asaText1"
         android:text="昼"
         android:textSize="14sp" />
@@ -78,6 +88,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayText"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="9dp"
         android:layout_toRightOf="@+id/hiruText1"
         android:text="夜"
         android:textSize="14sp" />
@@ -159,7 +170,7 @@
         android:layout_height="20dp"
         android:layout_below="@+id/toiletText1"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="3dp"
         android:layout_toRightOf="@+id/yoru1" />
 
 

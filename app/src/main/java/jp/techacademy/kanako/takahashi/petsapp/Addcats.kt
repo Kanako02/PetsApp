@@ -16,12 +16,12 @@ import android.view.View
 import android.graphics.Matrix
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
-import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.util.Base64
 import android.view.inputmethod.InputMethodManager
 import android.widget.RadioButton
+import android.widget.RadioGroup
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
@@ -45,10 +45,37 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
     private var mMonth = 0
     private var mDay = 0
 
+    private var mPet: Pet? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcats)
         supportActionBar?.title = "ペットのプロフィール登録"
+
+        val extras = intent.extras
+        mPet = extras.get("petUid") as Pet?
+
+        mPet =extras.get("uid") as Pet?
+
+        //編集の時
+        if (mPet != null) {
+            nameText.setText(mPet!!.name)
+            val bmp =
+                BitmapFactory.decodeByteArray(mPet!!.imageBytes, 0, mPet!!.imageBytes.size)
+            topimageView.setImageBitmap(bmp)
+
+            date_button.text = mPet!!.birth
+            oldtext.text = mPet!!.old
+            profileMemo.setText(mPet!!.profilememo)
+
+            if (mPet!!.gender == "オス"){
+                radioGroup.check(menButton.id)
+            }else if (mPet!!.gender == "メス"){
+                radioGroup.check(ladyButton.id)
+            }
+        }else if (mPet == null) {
+
+        }
 
         profileButton.setOnClickListener(this)
         topimageView.setOnClickListener(this)
@@ -58,11 +85,13 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
         mYear = calendar.get(Calendar.YEAR)
         mMonth = calendar.get(Calendar.MONTH)
         mDay = calendar.get(Calendar.DAY_OF_MONTH)
-
-
     }
 
     override fun onClick(v: View) {
+
+        val extras = intent.extras
+        mPet = extras.get("petUid") as Pet?
+
         if (v === topimageView) {
             // パーミッションの許可状態を確認する
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -87,7 +116,6 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             im.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS)
 
             val dataBaseReference = FirebaseDatabase.getInstance().reference
-            val profileRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
 
             val id = radioGroup.checkedRadioButtonId //radiobutton
             val checkedRadioButton = findViewById<RadioButton>(id)
@@ -126,7 +154,13 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
                 data["image"] = bitmapString
             }
 
-            profileRef.push().setValue(data, this)
+            if (mPet == null){
+                val profileRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                profileRef.push().setValue(data, this)
+            }else{
+                val profileRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet!!.petUid)
+                profileRef.updateChildren(data as Map<String, Any>, this)
+            }
             progressBar.visibility = View.VISIBLE
 
             val intent = Intent(applicationContext, Allpets::class.java)
