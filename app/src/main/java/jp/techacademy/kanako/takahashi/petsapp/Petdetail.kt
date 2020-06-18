@@ -18,6 +18,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
 import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -54,6 +55,8 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
     private var mDay = 0
 
     private var mcheckflag = false
+
+   private var mOrderCnt = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -185,6 +188,7 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             val toilet = toiletnum.text.toString()
             val weight = weightnum.text.toString()
             val detailmemo = detailMemo.text.toString()
+            val orderCnt = mOrderCnt.toString()
 
             data["day"] = day
             data["condition"] = condition
@@ -194,6 +198,7 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             data["toilet"] = toilet
             data["weight"] = weight
             data["detailmemo"] = detailmemo
+            data["orderCnt"] = orderCnt
 
             // 添付画像を取得する
             val drawable = dayimageView.drawable as? BitmapDrawable
@@ -324,6 +329,16 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                     "%02d",
                     mMonth + 1) + "/" + String.format("%02d", mDay)
                 today_button.text = dateString
+
+
+                var temp = mYear.toString() + String.format(
+                    "%02d",
+                    mMonth + 1) + String.format("%02d", mDay)
+                var date = temp.substring(2,8)
+                Log.d("Kotlintest","$date")
+
+                mOrderCnt = (1/date.toDouble())
+
                 mcheckflag = false
 
                 if (mReport == null) {
@@ -346,13 +361,10 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                                 mcheckflag = true
                             }
                         }
-
                         override fun onCancelled(firebaseError: DatabaseError) {}
                     })
                 }
-
             }, mYear, mMonth, mDay)
-
         datePickerDialog.show()
     }
 

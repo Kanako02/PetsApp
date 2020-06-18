@@ -39,6 +39,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
 
             val reportUid = dataSnapshot.key ?: ""
             val day = map["day"] ?: ""
+            val orderCnt = map["orderCnt"] ?:""
             val condition = map["condition"] ?:""
             val asa = map["asa"] ?: ""
             val hiru = map["hiru"] ?: ""
@@ -54,7 +55,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
                     byteArrayOf()
                 }
 
-            val report = Report(reportUid, day, condition, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
+            val report = Report(reportUid, day, orderCnt, condition, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
 
             mReportArrayList.add(report)
             mAdapter.notifyDataSetChanged()
@@ -198,10 +199,8 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         mListView.adapter = mAdapter
 
         mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-            .child(mPet.petUid).child(
-            ReportPATH)
-        mReportRef.addChildEventListener(mReportListener)
-
+            .child(mPet.petUid).child(ReportPATH)
+        mReportRef.orderByChild("orderCnt").addChildEventListener(mReportListener)
     }
 
 }

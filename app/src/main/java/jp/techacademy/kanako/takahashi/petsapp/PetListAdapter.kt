@@ -49,6 +49,8 @@ class PetListAdapter(context: Context) : BaseAdapter() {
             imageView.setImageBitmap(image)
         }
 
+        //TODO 年齢計算する
+
         return convertView
     }
 

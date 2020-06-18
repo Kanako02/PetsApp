@@ -5,9 +5,11 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 
 class DetailAlbumAdapter (context: Context) : BaseAdapter() {
@@ -49,13 +51,13 @@ class DetailAlbumAdapter (context: Context) : BaseAdapter() {
 //            conIc.setImageResource(R.drawable.ic_bad_24dp)
 //        }
 
+
         val bytes = mDetailAlbumArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
             val albumimage = convertView.findViewById<View>(R.id.albumimage) as ImageView
             albumimage.setImageBitmap(image)
         }
-
         return convertView
     }
 

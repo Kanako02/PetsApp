@@ -53,6 +53,7 @@ class Allpets : AppCompatActivity() {
 
                     val reportUid = dataSnapshot.key ?: ""
                     val day = map["day"] ?: ""
+                    val orderCnt = map["orderCnt"] ?:""
                     val condition = map["condition"] ?:""
                     val asa = map["asa"] ?: ""
                     val hiru = map["hiru"] ?: ""
@@ -67,7 +68,7 @@ class Allpets : AppCompatActivity() {
                         } else {
                             byteArrayOf()
                         }
-                    val report = Report(reportUid, day, condition, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
+                    val report = Report(reportUid, day, orderCnt, condition, asa, hiru, yoru, toilet, weight, detailmemo,  bytes)
                     reportArrayList.add(report)
                 }
             }

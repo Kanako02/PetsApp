@@ -24,6 +24,7 @@ class DetailAlbumActivity: AppCompatActivity() {
 
             val reportUid = dataSnapshot.key ?: ""
             val day = map["day"] ?: ""
+            val orderCnt = map["orderCnt"] ?:""
             val condition = map["condition"] ?:""
             val asa = map["asa"] ?: ""
             val hiru = map["hiru"] ?: ""
@@ -39,7 +40,9 @@ class DetailAlbumActivity: AppCompatActivity() {
                     byteArrayOf()
                 }
 
-            val detailalbum = Report(reportUid, day, condition, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
+            //TODO 画像がなかったら追加しない
+
+            val detailalbum = Report(reportUid, day, orderCnt, condition, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
 
             mDetailAlbumArrayList.add(detailalbum)
             mAdapter.notifyDataSetChanged()
