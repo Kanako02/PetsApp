@@ -123,75 +123,73 @@ class Allpets : AppCompatActivity() {
         }
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
             val intent = Intent(applicationContext, Addcats::class.java)
             intent.putExtra("petUid", mPet)
             startActivity(intent)
         }
 
-        // ListViewを長押ししたときの処理
-        listView.setOnItemLongClickListener { parent, _, position, _ ->
-            // タスクを削除する
-            val pet = parent.adapter.getItem(position) as Pet
-
-            // ダイアログを表示する
-            val builder = AlertDialog.Builder(this@Allpets)
-
-            builder.setTitle("削除")
-            builder.setMessage(pet.name + "を削除しますか")
-
-            builder.setPositiveButton("削除") { _, _ ->
-
-                val mPetUid =
-                    mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-                        .child(pet.petUid) //変更
-
-                mPetUid.removeValue()
-
-                mPetArrayList.remove(pet)     //追加　
-                mAdapter.notifyDataSetChanged()
-            }
-
-            builder.setNegativeButton("キャンセル", null)
-
-            val dialog = builder.create()
-            dialog.show()
-
-            true
-        }
-
 //        // ListViewを長押ししたときの処理
 //        listView.setOnItemLongClickListener { parent, _, position, _ ->
-//            showAlertDialog()
+//            // タスクを削除する
+//            val pet = parent.adapter.getItem(position) as Pet
+//
+//            // ダイアログを表示する
+//            val builder = AlertDialog.Builder(this@Allpets)
+//
+//            builder.setTitle("削除")
+//            builder.setMessage("「" + pet.name + "」" + "のデータを削除しますか")
+//
+//            builder.setPositiveButton("削除") { _, _ ->
+//
+//                val mPetUid =
+//                    mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+//                        .child(pet.petUid) //変更
+//
+//                mPetUid.removeValue()
+//
+//                mPetArrayList.remove(pet)     //追加　
+//                mAdapter.notifyDataSetChanged()
+//            }
+//
+//            builder.setNegativeButton("キャンセル", null)
+//
+//            val dialog = builder.create()
+//            dialog.show()
 //
 //            true
 //        }
 
-    }
+        // ListViewを長押ししたときの処理
+        listView.setOnItemLongClickListener { parent, _, position, _ ->
 
-//    private fun showAlertDialog() {
-//        // AlertDialog.Builderクラスを使ってAlertDialogの準備をする
-//        val alertDialogBuilder = AlertDialog.Builder(this)
-//        alertDialogBuilder.setTitle("タイトル")
-//        alertDialogBuilder.setMessage("メッセージ")
-//
-//        alertDialogBuilder.setNeutralButton("削除"){dialog, which ->
-//        }
-//
-//        alertDialogBuilder.setPositiveButton("キャンセル"){_,_ ->
-//        }
-//
-//        alertDialogBuilder.setNegativeButton("編集"){daialog, which->
-//            val intent = Intent(applicationContext, Addcats::class.java);
-//            intent.putExtra("petUid", mPetArrayList)
-//            startActivity(intent)
-//        }
-//
-//        // AlertDialogを作成して表示する
-//        val alertDialog = alertDialogBuilder.create()
-//        alertDialog.show()
-//    }
+            AlertDialog.Builder(this) // FragmentではActivityを取得して生成
+                .setTitle("削除・編集")
+                .setMessage("選択してください")
+                .setPositiveButton("キャンセル") { dialog, which ->
+
+                }
+                .setNegativeButton("編集") { dialog, which ->
+                    val intent = Intent(applicationContext, Addcats::class.java);
+                    intent.putExtra("petUid", mPetArrayList[position])
+                    startActivity(intent)
+                }
+                .setNeutralButton("削除") { dialog, which ->
+                    val pet = parent.adapter.getItem(position) as Pet
+                    val mPetUid =
+                        mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                            .child(pet.petUid) //変更
+
+                    mPetUid.removeValue()
+
+                    mPetArrayList.remove(pet)     //追加　
+                    mAdapter.notifyDataSetChanged()
+                }
+                .show()
+            true
+        }
+    }
 
     override fun onResume() {
         super.onResume()

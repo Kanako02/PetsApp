@@ -55,7 +55,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
         val extras = intent.extras
         mPet = extras.get("petUid") as Pet?
 
-        mPet =extras.get("uid") as Pet?
+//        mPet =extras.get("uid") as Pet?
 
         //編集の時
         if (mPet != null) {

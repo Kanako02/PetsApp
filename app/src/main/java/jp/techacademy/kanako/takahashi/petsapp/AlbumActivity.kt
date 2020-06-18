@@ -97,9 +97,6 @@ class AlbumActivity : AppCompatActivity() {
 
         supportActionBar?.title = "ペットのアルバム一覧"
 
-        val extras = intent.extras
-        mPet = extras.get("petUid") as Pet
-
         // Firebase
         mDatabaseReference = FirebaseDatabase.getInstance().reference
 
@@ -113,7 +110,7 @@ class AlbumActivity : AppCompatActivity() {
         mGridView.setOnItemClickListener { parent, _, position, _ ->
             // 入力・編集する画面に遷移させる
             val intent = Intent(applicationContext, DetailAlbumActivity::class.java);
-            intent.putExtra("petUid", mPet)
+            intent.putExtra("name", mAlbumArrayList[position])
             startActivity(intent);
         }
     }

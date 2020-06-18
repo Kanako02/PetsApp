@@ -71,7 +71,7 @@ class DetailAlbumActivity: AppCompatActivity() {
         supportActionBar?.title = "ペットのアルバム"
 
         val extras = intent.extras
-        mPet = extras.get("petUid") as Pet
+        mPet = extras.get("name") as Pet
 
         // Firebase
         mDatabaseReference = FirebaseDatabase.getInstance().reference
@@ -91,6 +91,7 @@ class DetailAlbumActivity: AppCompatActivity() {
         mGridView.adapter = mAdapter
 
         mAlbumRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet.petUid).child(ReportPATH)
+        println("ペット${mPet.petUid}")
         mAlbumRef.addChildEventListener(mEventListener)
 
     }

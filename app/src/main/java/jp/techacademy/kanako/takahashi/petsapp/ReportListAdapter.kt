@@ -74,12 +74,21 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
            mamoIc.setImageResource(R.drawable.memo)
         }
 
+//        val nekoIc = convertView.findViewById<View>(R.id.dayimageView) as ImageView
+//        if (mReportArrayList[position].imageBytes == null){
+//            nekoIc.setImageResource(R.drawable.neko)
+//        }
+
         val bytes = mReportArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
             val dayimageView = convertView.findViewById<View>(R.id.dayimageView) as ImageView
             dayimageView.setImageBitmap(image)
+        }else{
+            val dayimageView = convertView.findViewById<View>(R.id.dayimageView) as ImageView
+            dayimageView.setImageResource(R.drawable.neko)
         }
+//        println("画像${mReportArrayList[position].day} $bytes")
 
         return convertView
     }

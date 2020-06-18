@@ -103,9 +103,8 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         mAdapter.notifyDataSetChanged()
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
             intent = Intent(applicationContext, Petdetail::class.java)
             intent.putExtra("petUid", mPet); //fabボタンの時はpetUidを渡す
             intent.putExtra("report", ReportPATH)
@@ -120,7 +119,6 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             intent.putExtra("petUid", mPet);                             //mPetも渡す
             startActivity(intent);
         }
-
 
         // ListViewを長押ししたときの処理
         listView.setOnItemLongClickListener { parent, _, position, _ ->
@@ -181,9 +179,7 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             startActivity(intent)
 
         } else if (id == R.id.nav_album) {
-
             val intent = Intent(applicationContext, AlbumActivity::class.java);
-            intent.putExtra("petUid", mPet)
             startActivity(intent);
 
     }
@@ -200,8 +196,6 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         mReportArrayList.clear()
         mAdapter.setReportArrayList(mReportArrayList)
         mListView.adapter = mAdapter
-
-
 
         mReportRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
             .child(mPet.petUid).child(

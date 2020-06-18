@@ -96,6 +96,10 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             } else {
                 radio.check(bad.id)
             }
+
+            if (mReport != null) {
+                today_button.isEnabled = false
+            }
         }
 
         today_button.setOnClickListener(mOnDateClickListener)
@@ -322,30 +326,30 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                 today_button.text = dateString
                 mcheckflag = false
 
-//                if (mReport == null) {
-//                    mReportRef =
-//                        mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-//                            .child(mPet.petUid).child(ReportPATH)
-//
-//                    val query = mReportRef.orderByChild("day")
-//                        .equalTo(dateString)   //report以下のday;選択した日付のデータを取得
-//
-//                    query.addValueEventListener(object : ValueEventListener {
-//                        override fun onDataChange(snapshot: DataSnapshot) { //検索結果がsnapshotに返ってくる
-//                            println("テスト$snapshot")
-//
-//                            if (snapshot.exists()) {
-//                                Snackbar.make(
-//                                    today_button,
-//                                    "指定された日付はすでに登録されています",
-//                                    Snackbar.LENGTH_LONG).show()
-//                                mcheckflag = true
-//                            }
-//                        }
-//
-//                        override fun onCancelled(firebaseError: DatabaseError) {}
-//                    })
-//                }
+                if (mReport == null) {
+                    mReportRef =
+                        mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
+                            .child(mPet.petUid).child(ReportPATH)
+
+                    val query = mReportRef.orderByChild("day")
+                        .equalTo(dateString)   //report以下のday;選択した日付のデータを取得
+
+                    query.addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) { //検索結果がsnapshotに返ってくる
+                            println("テスト$snapshot")
+
+                            if (snapshot.exists()) {
+                                Snackbar.make(
+                                    today_button,
+                                    "指定された日付はすでに登録されています",
+                                    Snackbar.LENGTH_LONG).show()
+                                mcheckflag = true
+                            }
+                        }
+
+                        override fun onCancelled(firebaseError: DatabaseError) {}
+                    })
+                }
 
             }, mYear, mMonth, mDay)
 
