@@ -111,7 +111,7 @@ class AlbumActivity : AppCompatActivity() {
         mGridView.setOnItemClickListener { parent, _, position, _ ->
             // 入力・編集する画面に遷移させる
             val intent = Intent(applicationContext, DetailAlbumActivity::class.java);
-            intent.putExtra("name", mAlbumArrayList[position])
+            intent.putExtra("petUid", mAlbumArrayList[position])
             startActivity(intent);
         }
     }

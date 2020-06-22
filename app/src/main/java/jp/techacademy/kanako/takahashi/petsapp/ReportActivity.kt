@@ -167,23 +167,25 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
         val id = item.itemId
 
         if (id == R.id.nav_profile) {
-//            mToolbar.title = "プロフィール"
             val intent = Intent(applicationContext, Addcats::class.java);
-            intent.putExtra("uid", mPet)
-            startActivity(intent)
-
-        } else
-        if (id == R.id.nav_add) {
-//            mToolbar.title = "ペット追加登録"
-            val intent = Intent(applicationContext, Addcats::class.java)
             intent.putExtra("petUid", mPet)
             startActivity(intent)
 
-        } else if (id == R.id.nav_album) {
-            val intent = Intent(applicationContext, AlbumActivity::class.java);
-            startActivity(intent);
+        } else
+            if (id == R.id.nav_add) {
+                val intent = Intent(applicationContext, Addcats::class.java)
+                intent.putExtra("uid", mPet)
+                startActivity(intent)
 
-    }
+            } else if (id == R.id.nav_album) {
+                val intent = Intent(applicationContext, AlbumActivity::class.java);
+                startActivity(intent);
+
+            }else if (id == R.id.nav_health){
+                val intent = Intent(applicationContext, HealthActivity::class.java);
+                intent.putExtra("petUid", mPet)
+                startActivity(intent);
+            }
 
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         drawer.closeDrawer(GravityCompat.START)

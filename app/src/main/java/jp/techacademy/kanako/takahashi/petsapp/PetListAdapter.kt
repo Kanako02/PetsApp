@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
-
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.activity_addcats.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PetListAdapter(context: Context) : BaseAdapter() {
     private var mLayoutInflater: LayoutInflater
@@ -41,6 +42,29 @@ class PetListAdapter(context: Context) : BaseAdapter() {
 
         val nameText = convertView!!.findViewById<View>(R.id.nameText) as TextView
         nameText.text = mPetArrayList[position].name
+
+        val genderIc = convertView!!.findViewById<View>(R.id.genderIc) as ImageView
+        if (mPetArrayList[position].gender == "オス"){
+            genderIc.setImageResource(R.drawable.osu)
+        }else if (mPetArrayList[position].gender == "メス"){
+            genderIc.setImageResource(R.drawable.mesu)
+        }
+
+        val birthText = convertView!!.findViewById<View>(R.id.birthText) as TextView
+        birthText.text = mPetArrayList[position].birth
+
+        val oldText = convertView!!.findViewById<View>(R.id.oldText) as TextView
+        oldText.text = mPetArrayList[position].old
+
+//        val df = SimpleDateFormat("yyyyMMdd")  //現在の日付
+//        val date = Date()
+
+//        val birth : Int = Integer.parseInt(mPetArrayList[position].birth)
+//        val now : Int = Integer.parseInt(df.format(date))
+//
+//        val old = (now - birth)/10000
+//        oldText.text = old.toString()
+
 
         val bytes = mPetArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {

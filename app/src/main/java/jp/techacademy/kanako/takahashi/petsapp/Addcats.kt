@@ -50,7 +50,7 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_addcats)
-        supportActionBar?.title = "ペットのプロフィール登録"
+        supportActionBar?.title = "ペットのプロフィール"
 
         val extras = intent.extras
         mPet = extras.get("petUid") as Pet?

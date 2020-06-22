@@ -17,8 +17,14 @@
         android:id="@+id/albumday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:textAlignment="center"
         android:textSize="16sp" />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/niko"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        -->
+
 
 </LinearLayout>

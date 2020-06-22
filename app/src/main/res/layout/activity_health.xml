@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HealthActivity">
+
+    <TextView
+        android:id="@+id/hos"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="かかりつけ病院"
+        android:textAlignment="textStart"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/hosIc"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/hos"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/ic_hos_24dp" />
+
+    <EditText
+        android:id="@+id/hosp"
+        android:layout_width="250dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/hos"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/hosIc"
+        android:hint="病院名"
+        android:textSize="20dp" />
+
+
+
+</RelativeLayout>

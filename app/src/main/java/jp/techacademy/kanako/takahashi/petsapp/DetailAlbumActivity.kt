@@ -1,5 +1,6 @@
 package jp.techacademy.kanako.takahashi.petsapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Base64
@@ -17,6 +18,7 @@ class DetailAlbumActivity: AppCompatActivity() {
     private lateinit var mAlbumRef: DatabaseReference
 
     private lateinit var mPet: Pet
+
 
     private val mEventListener = object : ChildEventListener {
         override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
@@ -40,12 +42,13 @@ class DetailAlbumActivity: AppCompatActivity() {
                     byteArrayOf()
                 }
 
-            //TODO 画像がなかったら追加しない
+            if (dayimage != "") {
+                val detailalbum = Report(reportUid, day, orderCnt, condition,
+                    asa, hiru, yoru, toilet, weight, detailmemo, bytes)
 
-            val detailalbum = Report(reportUid, day, orderCnt, condition, asa, hiru, yoru, toilet, weight, detailmemo, bytes)
-
-            mDetailAlbumArrayList.add(detailalbum)
-            mAdapter.notifyDataSetChanged()
+                mDetailAlbumArrayList.add(detailalbum)
+                mAdapter.notifyDataSetChanged()
+            }
         }
 
         override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
@@ -74,7 +77,7 @@ class DetailAlbumActivity: AppCompatActivity() {
         supportActionBar?.title = "ペットのアルバム"
 
         val extras = intent.extras
-        mPet = extras.get("name") as Pet
+        mPet = extras.get("petUid") as Pet
 
         // Firebase
         mDatabaseReference = FirebaseDatabase.getInstance().reference
@@ -84,6 +87,16 @@ class DetailAlbumActivity: AppCompatActivity() {
         mAdapter = DetailAlbumAdapter(this)
         mDetailAlbumArrayList = ArrayList<Report>()
         mAdapter.notifyDataSetChanged()
+
+        // ListViewをタップしたときの処理
+        mGridView.setOnItemClickListener { parent, _, position, _ ->
+            // 入力・編集する画面に遷移させる
+            val intent = Intent(applicationContext, Petdetail::class.java);
+            intent.putExtra("petUid", mPet)
+            intent.putExtra("reportUid",mDetailAlbumArrayList[position])
+            startActivity(intent);
+        }
+
     }
 
     override fun onResume() {
@@ -95,7 +108,7 @@ class DetailAlbumActivity: AppCompatActivity() {
 
         mAlbumRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid).child(mPet.petUid).child(ReportPATH)
         println("ペット${mPet.petUid}")
-        mAlbumRef.addChildEventListener(mEventListener)
+        mAlbumRef.orderByChild("orderCnt").addChildEventListener(mEventListener)
 
     }
 

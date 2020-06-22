@@ -21,8 +21,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="タイトル"
+            android:text="ペットお世話アプリ"
             android:textAlignment="center"
+            android:layout_marginTop="20dp"
             android:textSize="36sp" />
 
         <EditText
@@ -42,16 +43,16 @@
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="ログイン"
+            android:layout_marginTop="30dp"
             android:background="@drawable/custom_button"
+            android:text="ログイン"
             android:textColor="@color/colorButtonText" />
 
         <Button
             android:id="@+id/createButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="5dp"
             android:text="アカウント作成"
             android:background="@drawable/custom_button"
             android:textColor="@color/colorButtonText" />
