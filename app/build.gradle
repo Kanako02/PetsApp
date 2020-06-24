@@ -4,6 +4,9 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'     // これを追加
+apply plugin: 'realm-android'   // これを追加
+
 android {
     compileSdkVersion 28
     buildToolsVersion "29.0.3"
@@ -36,6 +39,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.1' // この行を追加
     implementation 'com.google.firebase:firebase-database:16.0.1'
     implementation 'com.android.support:design:28.0.0'// この行を追加
+
+    implementation "com.android.support:support-compat:28.0.0" //通知
+
+    implementation 'com.android.support:cardview-v7:28.0.0' //カードビュー
 
 //    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1' //日付
 }

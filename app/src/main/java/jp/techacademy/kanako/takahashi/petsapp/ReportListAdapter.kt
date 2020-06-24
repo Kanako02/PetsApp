@@ -3,6 +3,8 @@ package jp.techacademy.kanako.takahashi.petsapp
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.GradientDrawable
+import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,9 @@ import java.util.ArrayList
 class ReportListAdapter(context: Context) : BaseAdapter() {
     private var mLayoutInflater: LayoutInflater
     private var mReportArrayList = ArrayList<Report>()
+
+    var onItemClick: (Report) -> Unit = {}
+    lateinit var onItemLongClickListener: (Report) -> Boolean
 
     init {
         mLayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -39,6 +44,16 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
 
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.list_report, parent, false)
+        }
+
+        // ここを追加
+        val cardView =
+            convertView!!.findViewById(R.id.cardView) as? CardView
+        cardView?.setOnClickListener {
+            onItemClick(mReportArrayList[position])
+        }
+        cardView?.setOnLongClickListener{
+            onItemLongClickListener(mReportArrayList[position])
         }
 
         val dayText = convertView!!.findViewById<View>(R.id.dayText) as TextView
@@ -74,16 +89,15 @@ class ReportListAdapter(context: Context) : BaseAdapter() {
            mamoIc.setImageResource(R.drawable.memo)
         }
 
-//        val nekoIc = convertView.findViewById<View>(R.id.dayimageView) as ImageView
-//        if (mReportArrayList[position].imageBytes == null){
-//            nekoIc.setImageResource(R.drawable.neko)
-//        }
+
 
         val bytes = mReportArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
             val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
             val dayimageView = convertView.findViewById<View>(R.id.dayimageView) as ImageView
             dayimageView.setImageBitmap(image)
+
+
         }else{
             val dayimageView = convertView.findViewById<View>(R.id.dayimageView) as ImageView
             dayimageView.setImageResource(R.drawable.neko)

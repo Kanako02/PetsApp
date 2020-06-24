@@ -100,9 +100,9 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                 radio.check(bad.id)
             }
 
-            if (mReport != null) {
-                today_button.isEnabled = false
-            }
+//            if (mReport != null) {
+//                today_button.isEnabled = false
+//            }
         }
 
         today_button.setOnClickListener(mOnDateClickListener)

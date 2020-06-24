@@ -1,177 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/dayText"
-        android:layout_width="90dp"
-        android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="2dp"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="16sp" />
-
-    <ImageView
-        android:id="@+id/conIc"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/dayText"/>
-
-
-    <ImageView
-        android:id="@+id/dayimageView"
-        android:layout_width="110dp"
-        android:layout_height="110dp"
-        android:layout_below="@+id/dayText"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="3dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginBottom="2dp"
-        android:background="#d3d3d3"
-        android:src="@drawable/neko"/>
-
-    <ImageView
-        android:id="@+id/food"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/dayText"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="12dp"
-        android:layout_toEndOf="@+id/dayimageView"
-        android:src="@drawable/food"
-        android:textSize="12dp" />
+        android:layout_margin="5dp"
+        app:cardCornerRadius="5dp"
+        card_view:cardElevation="8dp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/orange">
 
-    <TextView
-        android:id="@+id/asa1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dayText"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="9dp"
-        android:layout_toEndOf="@+id/food"
-        android:text="朝"
-        android:textSize="14sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/asaText1"
-        android:layout_width="55dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/asa1"
-        android:layout_alignStart="@+id/asa1"
-        android:textSize="16dp" />
+            <TextView
+                android:id="@+id/dayText"
+                android:layout_width="90dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="2dp"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/hiru1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dayText"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="9dp"
-        android:layout_toRightOf="@+id/asaText1"
-        android:text="昼"
-        android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/conIc"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/dayText" />
 
-    <TextView
-        android:id="@+id/hiruText1"
-        android:layout_width="55dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/hiru1"
-        android:layout_alignStart="@+id/hiru1"
-        android:textSize="16dp" />
 
-    <TextView
-        android:id="@+id/yoru1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dayText"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="9dp"
-        android:layout_toRightOf="@+id/hiruText1"
-        android:text="夜"
-        android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/dayimageView"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_below="@+id/dayText"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="2dp"
+                android:src="@drawable/neko" />
+<!--            android:background="#E3E2DF"-->
 
-    <TextView
-        android:id="@+id/yoruText1"
-        android:layout_width="55dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/yoru1"
-        android:layout_alignStart="@+id/yoru1"
-        android:textSize="16dp" />
+            <ImageView
+                android:id="@+id/food"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dayText"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="12dp"
+                android:layout_toEndOf="@+id/dayimageView"
+                android:src="@drawable/food"
+                android:textSize="12dp" />
 
-    <ImageView
-        android:id="@+id/toilet"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/asaText1"
-        android:layout_alignStart="@+id/food"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/toilet"
-        android:textAlignment="textStart"
-        android:textSize="12dp" />
+            <TextView
+                android:id="@+id/asa1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dayText"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="9dp"
+                android:layout_toEndOf="@+id/food"
+                android:text="朝"
+                android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/toiletText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/asaText1"
-        android:layout_alignStart="@+id/asaText1"
-        android:layout_marginTop="15dp"
-        android:textSize="16dp" />
+            <TextView
+                android:id="@+id/asaText1"
+                android:layout_width="55dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/asa1"
+                android:layout_alignStart="@+id/asa1"
+                android:textSize="16dp" />
 
-    <TextView
-        android:id="@+id/kai"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/asaText1"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/toiletText1"
-        android:text="回"
-        android:textSize="12dp" />
+            <TextView
+                android:id="@+id/hiru1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dayText"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="9dp"
+                android:layout_toRightOf="@+id/asaText1"
+                android:text="昼"
+                android:textSize="14sp" />
 
-    <ImageView
-        android:id="@+id/weight"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_below="@+id/asaText1"
-        android:layout_marginLeft="-5dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@+id/asaText1"
-        android:src="@drawable/weight"
-        android:textSize="12dp" />
+            <TextView
+                android:id="@+id/hiruText1"
+                android:layout_width="55dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/hiru1"
+                android:layout_alignStart="@+id/hiru1"
+                android:textSize="16dp" />
 
-    <TextView
-        android:id="@+id/weightText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/asaText1"
-        android:layout_marginStart="7dp"
-        android:layout_marginTop="15dp"
-        android:layout_toRightOf="@+id/weight"
-        android:textSize="16dp" />
+            <TextView
+                android:id="@+id/yoru1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dayText"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="9dp"
+                android:layout_toRightOf="@+id/hiruText1"
+                android:text="夜"
+                android:textSize="14sp" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/detailmemo1"-->
-<!--        android:layout_width="10dp"-->
-<!--        android:layout_height="30dp"-->
-<!--        android:layout_below="@+id/asaText1"-->
-<!--        android:layout_marginStart="50dp"-->
-<!--        android:layout_marginLeft="55dp"-->
-<!--        android:layout_marginTop="1dp"-->
-<!--        android:layout_toRightOf="@id/weightText1"-->
-<!--        android:textSize="12dp" />-->
+            <TextView
+                android:id="@+id/yoruText1"
+                android:layout_width="55dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/yoru1"
+                android:layout_alignStart="@+id/yoru1"
+                android:textSize="16dp" />
 
-    <ImageView
-        android:id="@+id/memoic"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_below="@+id/toiletText1"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="3dp"
-        android:layout_toRightOf="@+id/yoru1" />
+            <ImageView
+                android:id="@+id/toilet"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/asaText1"
+                android:layout_alignStart="@+id/food"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/toilet"
+                android:textAlignment="textStart"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/toiletText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/asaText1"
+                android:layout_alignStart="@+id/asaText1"
+                android:layout_marginTop="15dp"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/kai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/asaText1"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@id/toiletText1"
+                android:text="回"
+                android:textSize="12dp" />
+
+            <ImageView
+                android:id="@+id/weight"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/asaText1"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@+id/asaText1"
+                android:src="@drawable/weight"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/weightText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/asaText1"
+                android:layout_marginStart="7dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/weight"
+                android:textSize="16dp" />
+
+            <!--    <TextView-->
+            <!--        android:id="@+id/detailmemo1"-->
+            <!--        android:layout_width="10dp"-->
+            <!--        android:layout_height="30dp"-->
+            <!--        android:layout_below="@+id/asaText1"-->
+            <!--        android:layout_marginStart="50dp"-->
+            <!--        android:layout_marginLeft="55dp"-->
+            <!--        android:layout_marginTop="1dp"-->
+            <!--        android:layout_toRightOf="@id/weightText1"-->
+            <!--        android:textSize="12dp" />-->
+
+            <ImageView
+                android:id="@+id/memoic"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_below="@+id/toiletText1"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/yoru1" />
+
+        </RelativeLayout>
+
+</android.support.v7.widget.CardView>
 
 
 </RelativeLayout>

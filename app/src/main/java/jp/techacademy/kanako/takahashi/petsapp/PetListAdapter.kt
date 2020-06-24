@@ -1,8 +1,10 @@
 package jp.techacademy.kanako.takahashi.petsapp
 
 import android.content.Context
+import android.content.PeriodicSync
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +18,9 @@ import java.util.*
 class PetListAdapter(context: Context) : BaseAdapter() {
     private var mLayoutInflater: LayoutInflater
     private var mPetArrayList = ArrayList<Pet>()
+
+    var onItemClick: (Pet) -> Unit = {}
+    lateinit var onItemLongClickListener: (Pet) -> Boolean
 
     init {
         mLayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
@@ -40,6 +45,19 @@ class PetListAdapter(context: Context) : BaseAdapter() {
             convertView = mLayoutInflater.inflate(R.layout.list_pets, parent, false)
         }
 
+        //todo カードビュー
+
+        // ここを追加
+        val cardView = convertView!!.findViewById(R.id.cardView) as? CardView
+        cardView?.setOnClickListener {
+            onItemClick(mPetArrayList[position])
+        }
+        cardView?.setOnLongClickListener{
+            onItemLongClickListener(mPetArrayList[position])
+        }
+
+
+
         val nameText = convertView!!.findViewById<View>(R.id.nameText) as TextView
         nameText.text = mPetArrayList[position].name
 
@@ -56,15 +74,6 @@ class PetListAdapter(context: Context) : BaseAdapter() {
         val oldText = convertView!!.findViewById<View>(R.id.oldText) as TextView
         oldText.text = mPetArrayList[position].old
 
-//        val df = SimpleDateFormat("yyyyMMdd")  //現在の日付
-//        val date = Date()
-
-//        val birth : Int = Integer.parseInt(mPetArrayList[position].birth)
-//        val now : Int = Integer.parseInt(df.format(date))
-//
-//        val old = (now - birth)/10000
-//        oldText.text = old.toString()
-
 
         val bytes = mPetArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
@@ -74,6 +83,22 @@ class PetListAdapter(context: Context) : BaseAdapter() {
         }
 
         //TODO 年齢計算する
+
+//        val date_str = birthText.toString()
+//        val df = SimpleDateFormat("yyyy/MM/dd")
+//        val dt = df.parse(date_str)
+//        val df2 = SimpleDateFormat("yyyy/MM/dd")
+//        val message = df2.format(dt)
+
+
+//        val df = SimpleDateFormat("yyyyMMdd")  //現在の日付
+//        val date = Date()
+
+//        val birth : Int = Integer.parseInt(mPetArrayList[position].birth)
+//        val now : Int = Integer.parseInt(df.format(date))
+//
+//        val old = (now - birth)/10000
+//        oldText.text = old.toString()
 
         return convertView
     }

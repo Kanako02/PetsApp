@@ -116,12 +116,23 @@ class Allpets : AppCompatActivity() {
         mPetArrayList = ArrayList<Pet>()
         mAdapter.notifyDataSetChanged()
 
-        mListView.setOnItemClickListener { parent, view, position, id ->
+//        mListView.setOnItemClickListener { parent, view, position, id ->
+//            // リストをタップしたら遷移
+//            val intent = Intent(applicationContext, ReportActivity::class.java)
+//            intent.putExtra("petUid", mPetArrayList[position])
+//            startActivity(intent)
+//        }
+
+        //todo カードビュー
+
+        // ここを追加
+        mAdapter.onItemClick = { pet ->
             // リストをタップしたら遷移
             val intent = Intent(applicationContext, ReportActivity::class.java)
-            intent.putExtra("petUid", mPetArrayList[position])
+            intent.putExtra("petUid", pet)
             startActivity(intent)
         }
+
 
         fab.setOnClickListener { view ->
 //            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -131,40 +142,9 @@ class Allpets : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        // ListViewを長押ししたときの処理
-//        listView.setOnItemLongClickListener { parent, _, position, _ ->
-//            // タスクを削除する
-//            val pet = parent.adapter.getItem(position) as Pet
-//
-//            // ダイアログを表示する
-//            val builder = AlertDialog.Builder(this@Allpets)
-//
-//            builder.setTitle("削除")
-//            builder.setMessage("「" + pet.name + "」" + "のデータを削除しますか")
-//
-//            builder.setPositiveButton("削除") { _, _ ->
-//
-//                val mPetUid =
-//                    mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-//                        .child(pet.petUid) //変更
-//
-//                mPetUid.removeValue()
-//
-//                mPetArrayList.remove(pet)     //追加　
-//                mAdapter.notifyDataSetChanged()
-//            }
-//
-//            builder.setNegativeButton("キャンセル", null)
-//
-//            val dialog = builder.create()
-//            dialog.show()
-//
-//            true
-//        }
+        //todo カードビュー長押し
 
-        // ListViewを長押ししたときの処理
-        listView.setOnItemLongClickListener { parent, _, position, _ ->
-
+        mAdapter.onItemLongClickListener = { pet ->
             AlertDialog.Builder(this) // FragmentではActivityを取得して生成
                 .setTitle("削除・編集")
                 .setMessage("選択してください")
@@ -173,11 +153,11 @@ class Allpets : AppCompatActivity() {
                 }
                 .setNegativeButton("編集") { dialog, which ->
                     val intent = Intent(applicationContext, Addcats::class.java);
-                    intent.putExtra("petUid", mPetArrayList[position])
+                    intent.putExtra("petUid", pet)
                     startActivity(intent)
                 }
                 .setNeutralButton("削除") { dialog, which ->
-                    val pet = parent.adapter.getItem(position) as Pet
+//                    val pet = parent.adapter.getItem(position) as Pet
                     val mPetUid =
                         mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                             .child(pet.petUid) //変更
