@@ -149,38 +149,6 @@ class ReportActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelec
             true
         }
 
-//        // ListViewを長押ししたときの処理
-//        listView.setOnItemLongClickListener { parent, _, position, _ ->
-//            // タスクを削除する
-//            val report = parent.adapter.getItem(position) as Report
-//
-//            // ダイアログを表示する
-//            val builder = AlertDialog.Builder(this@ReportActivity)
-//
-//            builder.setTitle("削除")
-//            builder.setMessage(report.day + "の記録を削除しますか")
-//
-//            builder.setPositiveButton("削除") { _, _ ->
-//
-//                val mReportUid =
-//                    mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
-//                        .child(mPet.petUid).child(ReportPATH)
-//                        .child(report.reportUid)                       //変更
-//
-//                mReportUid.removeValue()
-//
-//                mReportArrayList.remove(report)     //追加　
-//                mAdapter.notifyDataSetChanged()
-//            }
-//
-//            builder.setNegativeButton("キャンセル", null)
-//
-//            val dialog = builder.create()
-//            dialog.show()
-//
-//            true
-//        }
-
         // ナビゲーションドロワーの設定
         val drawer = findViewById<DrawerLayout>(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(this, drawer, mToolbar, R.string.app_name, R.string.app_name)
