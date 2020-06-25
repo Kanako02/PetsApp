@@ -16,6 +16,7 @@
         android:layout_marginStart="150dp"
         android:layout_marginTop="5dp"
         android:text="ペット写真登録"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="12sp" />
 
     <ImageView
@@ -35,7 +36,8 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
         android:text="*ペットの名前"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/nameText"
@@ -55,7 +57,8 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
         android:text="性別"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -64,12 +67,14 @@
         android:layout_below="@+id/gender"
         android:orientation="horizontal">
 
-    　　<RadioButton
-           android:id="@+id/menButton"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="オス"
-           android:layout_marginStart="50dp"/>
+    　
+        <RadioButton
+            android:id="@+id/menButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:checked="true"
+            android:text="オス" />
 
         <RadioButton
             android:id="@+id/ladyButton"
@@ -83,11 +88,12 @@
         android:id="@+id/birth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below = "@+id/radioGroup"
+        android:layout_below="@+id/radioGroup"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:text="誕生日・年齢"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/date_button"
@@ -122,6 +128,7 @@
         android:layout_toEndOf="@+id/oldtext"
         android:text="歳"
         android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="16sp" />
 
     <TextView
@@ -133,7 +140,8 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="5dp"
         android:text="メモ"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/profileMemo"

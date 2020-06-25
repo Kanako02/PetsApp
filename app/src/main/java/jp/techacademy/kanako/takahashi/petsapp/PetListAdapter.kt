@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_addcats.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -72,33 +73,39 @@ class PetListAdapter(context: Context) : BaseAdapter() {
         birthText.text = mPetArrayList[position].birth
 
         val oldText = convertView!!.findViewById<View>(R.id.oldText) as TextView
-        oldText.text = mPetArrayList[position].old
+//        oldText.text = mPetArrayList[position].old
 
 
         val bytes = mPetArrayList[position].imageBytes
         if (bytes.isNotEmpty()) {
-            val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size).copy(Bitmap.Config.ARGB_8888, true)
+            val image = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                .copy(Bitmap.Config.ARGB_8888, true)
             val imageView = convertView.findViewById<View>(R.id.imageView) as ImageView
             imageView.setImageBitmap(image)
+        } else {
+            val imageView = convertView.findViewById<View>(R.id.imageView) as ImageView
+            imageView.setImageResource(R.drawable.neko)
         }
 
-        //TODO 年齢計算する
+        if (mPetArrayList[position].birth != "----/--/--") {
+            val date_str = mPetArrayList[position].birth
+            val df = SimpleDateFormat("yyyy/MM/dd")
+            val dt = df.parse(date_str)
+            val df2 = SimpleDateFormat("yyyyMMdd")
+            val message = df2.format(dt)
 
-//        val date_str = birthText.toString()
-//        val df = SimpleDateFormat("yyyy/MM/dd")
-//        val dt = df.parse(date_str)
-//        val df2 = SimpleDateFormat("yyyy/MM/dd")
-//        val message = df2.format(dt)
+            val today = SimpleDateFormat("yyyyMMdd")  //現在の日付
+            val date = Date()
 
+            val birth: Int = Integer.parseInt(message)
+            val now: Int = Integer.parseInt(today.format(date))
 
-//        val df = SimpleDateFormat("yyyyMMdd")  //現在の日付
-//        val date = Date()
-
-//        val birth : Int = Integer.parseInt(mPetArrayList[position].birth)
-//        val now : Int = Integer.parseInt(df.format(date))
-//
-//        val old = (now - birth)/10000
-//        oldText.text = old.toString()
+            val old = (now - birth) / 10000
+            oldText.text = old.toString()
+            println("年齢:$old")
+        }else {
+            oldText.text = "？"
+        }
 
         return convertView
     }

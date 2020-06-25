@@ -69,7 +69,7 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
 
         mReport = extras.get("reportUid") as Report?
 
-        println("mペット$mPet")
+//        println("mペット$mPet")
 
         var countNumber = 0   //移動
         radio.check(good.id)
@@ -132,7 +132,6 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
         mDatabaseReference = FirebaseDatabase.getInstance().reference
         mDayRef = mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
             .child(mPet.petUid).child(ReportPATH)
-//        mDayRef.addChildEventListener(mEventListener)
     }
 
 
@@ -325,15 +324,12 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                 mYear = year
                 mMonth = month
                 mDay = dayOfMonth
-                val dateString = mYear.toString() + "/" + String.format(
-                    "%02d",
+                val dateString = mYear.toString() + "/" + String.format("%02d",
                     mMonth + 1) + "/" + String.format("%02d", mDay)
                 today_button.text = dateString
 
-
-                var temp = mYear.toString() + String.format(
-                    "%02d",
-                    mMonth + 1) + String.format("%02d", mDay)
+                var temp = mYear.toString() + String.format("%02d", mMonth + 1) +
+                        String.format("%02d", mDay)
                 var date = temp.substring(2,8)
                 Log.d("Kotlintest","$date")
 

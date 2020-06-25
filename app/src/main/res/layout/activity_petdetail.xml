@@ -101,9 +101,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/dayimageView"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="8dp"
         android:text="ごはん"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/asa"
@@ -118,7 +119,7 @@
     <EditText
         android:id="@+id/asaText"
         android:layout_width="60dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/food"
         android:layout_toRightOf="@+id/asa"
         android:maxLines="1"
@@ -139,7 +140,7 @@
     <EditText
         android:id="@+id/hiruText"
         android:layout_width="60dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/food"
         android:layout_toRightOf="@+id/hiru"
         android:maxLines="1"
@@ -160,7 +161,7 @@
     <EditText
         android:id="@+id/yoruText"
         android:layout_width="60dp"
-        android:layout_height="45dp"
+        android:layout_height="40dp"
         android:layout_below="@+id/food"
         android:layout_toRightOf="@+id/yoru"
         android:maxLines="1"
@@ -173,16 +174,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/asaText"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:text="トイレの回数"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/toiletnum"
         android:layout_width="60dp"
         android:layout_height="45dp"
         android:layout_below="@+id/toiletTex"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="55dp"
         android:digits="0123456789"
         android:inputType="number"
         android:maxLines="1"
@@ -194,7 +196,7 @@
         android:layout_width="35dp"
         android:layout_height="20dp"
         android:layout_below="@+id/toiletTex"
-        android:layout_marginLeft="17dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="2dp"
         android:layout_toRightOf="@+id/toiletnum"
         android:background="@drawable/custom_button"
@@ -207,7 +209,7 @@
         android:layout_width="35dp"
         android:layout_height="20dp"
         android:layout_below="@+id/upButton"
-        android:layout_marginLeft="17dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginTop="5dp"
         android:layout_toRightOf="@+id/toiletnum"
         android:background="@drawable/custom_button"
@@ -222,10 +224,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/asaText"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="7dp"
         android:layout_toRightOf="@+id/toiletTex"
         android:text="体重"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/weightnum"
@@ -248,7 +251,8 @@
         android:layout_marginStart="50dp"
         android:layout_marginTop="7dp"
         android:text="メモ"
-        android:textSize="12sp" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="14sp" />
 
     <EditText
         android:id="@+id/detailMemo"

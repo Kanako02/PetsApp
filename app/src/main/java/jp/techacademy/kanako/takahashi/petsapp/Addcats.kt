@@ -148,13 +148,12 @@ class Addcats : AppCompatActivity(), View.OnClickListener, DatabaseReference.Com
             if (drawable != null) {
                 val bitmap = drawable.bitmap
                 val baos = ByteArrayOutputStream()
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos)
+                bitmap?.compress(Bitmap.CompressFormat.JPEG, 80, baos)
                 val bitmapString = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT)
 
                 data["image"] = bitmapString
             }
-
-            if (mPet == null){
+                if (mPet == null){
                 val profileRef = dataBaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)
                 profileRef.push().setValue(data, this)
             }else{

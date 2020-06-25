@@ -21,10 +21,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:text="ペットお世話アプリ"
-            android:textAlignment="center"
             android:layout_marginTop="20dp"
-            android:textSize="36sp" />
+            android:text="ペット管理"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="#666263"
+            android:textSize="36sp"
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/emailText"
