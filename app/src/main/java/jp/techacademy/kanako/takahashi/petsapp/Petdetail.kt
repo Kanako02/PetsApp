@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_addcats.*
 import kotlinx.android.synthetic.main.activity_petdetail.*
 import kotlinx.android.synthetic.main.activity_petdetail.progressBar
 import java.io.ByteArrayOutputStream
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
 
@@ -99,6 +100,18 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
             } else {
                 radio.check(bad.id)
             }
+
+            val day = today_button.text.toString()
+            val date_str = day
+            val df = SimpleDateFormat("yyyy/MM/dd")
+            val dt = df.parse(date_str)
+            val df2 = SimpleDateFormat("yyyyMMdd")
+            val message = df2.format(dt)
+
+            var date = message.substring(2,8)
+            Log.d("Kotlintest","$date")
+
+            mOrderCnt = (1/date.toDouble())
 
 //            if (mReport != null) {
 //                today_button.isEnabled = false
@@ -328,15 +341,19 @@ class Petdetail : AppCompatActivity(), View.OnClickListener, DatabaseReference.C
                     mMonth + 1) + "/" + String.format("%02d", mDay)
                 today_button.text = dateString
 
-                var temp = mYear.toString() + String.format("%02d", mMonth + 1) +
-                        String.format("%02d", mDay)
-                var date = temp.substring(2,8)
+                val day = today_button.text.toString()
+                val date_str = day
+                val df = SimpleDateFormat("yyyy/MM/dd")
+                val dt = df.parse(date_str)
+                val df2 = SimpleDateFormat("yyyyMMdd")
+                val message = df2.format(dt)
+
+                var date = message.substring(2,8)
                 Log.d("Kotlintest","$date")
 
                 mOrderCnt = (1/date.toDouble())
 
                 mcheckflag = false
-
                 if (mReport == null) {
                     mReportRef =
                         mDatabaseReference.child(FirebaseAuth.getInstance().currentUser!!.uid)

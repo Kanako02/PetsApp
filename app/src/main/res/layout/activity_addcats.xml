@@ -11,11 +11,12 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+
         android:layout_centerHorizontal="true"
         android:layout_marginStart="150dp"
         android:layout_marginTop="5dp"
         android:text="ペット写真登録"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="12sp" />
 
