@@ -17,7 +17,7 @@
         android:id="@+id/title_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="タイトル(猫の名前等)"
+        android:hint="タイトル(ペットの名前)"
         android:lines="1"
         android:textSize="22dp" />
 
@@ -75,7 +75,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@drawable/custom_button"
-        android:text="登録"
+        android:text="追加"
         android:textColor="@color/colorButtonText" />
 
 </RelativeLayout>
