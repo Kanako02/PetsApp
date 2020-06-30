@@ -21,19 +21,22 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginTop="20dp"
-            android:text="ペット管理"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/aclonica"
+            android:text="My Pet"
             android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+
             android:textColor="#666263"
-            android:textSize="36sp"
+            android:textSize="60dp"
             android:textStyle="bold" />
 
         <EditText
             android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="メールアドレス" />
+            android:hint="メールアドレス"
+            android:layout_marginTop="20dp"/>
 
         <EditText
             android:layout_width="match_parent"
